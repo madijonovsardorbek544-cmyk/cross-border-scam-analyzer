@@ -43,3 +43,9 @@ Cross-country comparison:
 | Europe         | Government or tax office   | Legal consequences  |
 | Asia           | University or exam board   | Academic penalties  |
 | Global         | Online service provider    | Immediate action    |
+
+Limitations and ethical considerations:
+This analysis is based on publicly observed scam patterns and does not involve real user data.
+The goal of this project is education and prevention, not surveillance or punishment.
+Care must be taken to avoid false accusations, as not all urgent messages are scams.
+Cybersecurity tools should prioritize user privacy, transparency, and responsible use.
