@@ -1,112 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Cross-Border Scam Analyzer (CBSA)</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background: #f4f6f8;
-      color: #222;
-      line-height: 1.6;
-    }
-    header {
-      background: #0a2540;
-      color: white;
-      padding: 30px 20px;
-      text-align: center;
-    }
-    section {
-      max-width: 900px;
-      margin: auto;
-      padding: 20px;
-      background: white;
-      margin-top: 20px;
-      border-radius: 6px;
-    }
-    h2 {
-      color: #0a2540;
-    }
-    footer {
-      text-align: center;
-      padding: 15px;
-      font-size: 14px;
-      color: #666;
-    }
-  </style>
+  <meta name="description" content="A student-led project analyzing how online scams adapt across countries using psychological and international relations perspectives." />
+  <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
 
-<header>
-  <h1>Cross-Border Scam Analyzer (CBSA)</h1>
-  <p>Understanding how online scams adapt across countries and societies</p>
-</header>
+  <div class="nav">
+    <div class="container nav-inner">
+      <div class="brand">
+        <span>CBSA</span>
+        <span class="badge">Student Project</span>
+      </div>
+      <div class="links">
+        <a href="#home">Home</a>
+        <a href="#analyzer">Analyzer</a>
+        <a href="#case">Case</a>
+        <a href="#ethics">Ethics</a>
+      </div>
+    </div>
+  </div>
 
-<section>
-  <h2>About the Project</h2>
-  <p>
-    CBSA is a student-led cybersecurity project that analyzes how online scams
-    adapt across countries, languages, and psychological contexts.
-    It combines cybersecurity awareness with international relations perspectives.
-  </p>
-</section>
+  <div class="hero" id="home">
+    <div class="container hero-grid">
+      <div class="card">
+        <div class="card-inner">
+          <h1 class="h-title">Cross-Border Scam Analyzer</h1>
+          <p class="h-sub">
+            Learn how common scams manipulate people — and how the same tactic changes across countries, institutions, and cultures.
+          </p>
+          <div class="pills">
+            <span class="pill">Cybersecurity awareness</span>
+            <span class="pill">Psychological tactics</span>
+            <span class="pill">International relations lens</span>
+            <span class="pill">No data collection</span>
+          </div>
 
-<section>
-  <h2>Case Study: Fake Account Message</h2>
-  <p><strong>Target group:</strong> Students (international)</p>
-  <p><strong>Scam message:</strong> “Your account has been suspended. Verify now to avoid permanent loss.”</p>
-  <p><strong>Psychological tactics:</strong> Fear, urgency, authority</p>
-  <p>
-    This scam adapts across regions by changing the authority it imitates,
-    such as banks, governments, or universities.
-  </p>
-</section>
+          <div class="kpi">
+            <div class="box">
+              <div class="num">Case 001</div>
+              <div class="lbl">Fake Account Message</div>
+            </div>
+            <div class="box">
+              <div class="num">4 Regions</div>
+              <div class="lbl">Cross-country comparison</div>
+            </div>
+            <div class="box">
+              <div class="num">Ethics-first</div>
+              <div class="lbl">Privacy + transparency</div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-<section>
-  <h2>Ethics & Purpose</h2>
-  <p>
-    This project is for educational purposes only. It does not collect
-    personal data and focuses on awareness, prevention, and responsible use
-    of cybersecurity knowledge.
-  </p>
-</section>
+      <div class="card">
+        <div class="card-inner">
+          <h2>What this website is</h2>
+          <p>
+            A public educational site. It shows scam patterns and gives a simple risk-check tool.
+            This is not a surveillance system and does not store your text.
+          </p>
+          <hr>
+          <div class="row">
+            <span class="tag">Built on GitHub Pages</span>
+            <span class="tag">Frontend-only</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<footer>
-  © 2026 Cross-Border Scam Analyzer | Student Project
-</footer>
+  <div class="section" id="analyzer">
+    <div class="container grid">
+      <div class="card">
+        <div class="card-inner">
+          <h2>Check a Suspicious Message</h2>
+          <p>Paste a message you received. This tool runs in your browser and does not store data.</p>
+          <hr>
+          <textarea id="msg" placeholder="Paste the message here..."></textarea>
+          <div class="btn-row">
+            <button class="primary" id="analyzeBtn">Analyze</button>
+            <button class="ghost" id="clearBtn">Clear</button>
+            <span class="tag">No data stored</span>
+          </div>
 
+          <div id="resultBox" style="display:none">
+            <hr>
+            <div class="row">
+              <strong id="riskLevel">—</strong>
+              <span class="tag">Score: <span id="riskScore">—</span></span>
+            </div>
+            <div class="meter" style="margin-top:10px">
+              <div id="meterBar" style="width:0%"></div>
+            </div>
+
+            <div class="result" style="margin-top:12px">
+              <div class="row">
+                <span class="tag">Reasons</span>
+              </div>
+              <div id="reasons"></div>
+            </div>
+
+            <div class="result">
+              <div class="row">
+                <span class="tag">Safe next steps</span>
+              </div>
+              <div id="tips"></div>
+            </div>
+
+            <div id="preview"></div>
+          </div>
+
+          <p class="note">
+            Disclaimer: this is a simple educational heuristic (pattern-based). Always verify through official channels.
+          </p>
+        </div>
+      </div>
+
+      <div class="card" id="case">
+        <div class="card-inner">
+          <h2>Case Study: Case 001 (Summary)</h2>
+          <p><strong>Target:</strong> Students (international)</p>
+          <p><strong>Example message:</strong> “Your account has been suspended. Verify now to avoid permanent loss.”</p>
+          <hr>
+          <p><strong>Psychological tactics:</strong></p>
+          <ul class="list">
+            <li>Fear (account loss)</li>
+            <li>Urgency (quick action)</li>
+            <li>Authority (official tone)</li>
+          </ul>
+          <p><strong>Cross-border adaptation:</strong></p>
+          <p class="note">
+            Scammers swap the “authority figure” depending on what people trust locally: banks, government agencies, universities,
+            scholarship programs, or visa services — while keeping the same pressure tactics.
+          </p>
+
+          <hr>
+
+          <h2>Cross-country comparison</h2>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Country/Region</th>
+                <th>Fake Authority Used</th>
+                <th>Main Trigger</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>United States</td><td>Bank or tech company</td><td>Account suspension</td></tr>
+              <tr><td>Europe</td><td>Government or tax office</td><td>Legal consequences</td></tr>
+              <tr><td>Asia</td><td>University or exam board</td><td>Academic penalties</td></tr>
+              <tr><td>Global</td><td>Online service provider</td><td>Immediate action</td></tr>
+            </tbody>
+          </table>
+
+          <p class="note">Full case text is available in your GitHub repository: <strong>case-001.md</strong>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="ethics">
+    <div class="container">
+      <div class="card">
+        <div class="card-inner">
+          <h2>Ethics & Purpose</h2>
+          <p>
+            This project is for educational purposes only. It does not collect personal data and focuses on awareness,
+            prevention, and responsible cybersecurity practice. Avoid false accusations and verify through official sources.
+          </p>
+          <hr>
+          <div class="row">
+            <span class="tag">Privacy-first</span>
+            <span class="tag">No tracking</span>
+            <span class="tag">Transparent logic</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer">© 2026 Cross-Border Scam Analyzer | Student Project</div>
+    </div>
+  </div>
+
+  <script src="./app.js"></script>
 </body>
 </html>
-<section>
-  <h2>Check a Suspicious Message</h2>
-  <p>
-    Paste a message you received to learn common warning signs.
-    This tool does not collect or store any data.
-  </p>
-
-  <textarea id="msg" rows="6" style="width:100%; padding:10px;"
-    placeholder="Paste the message here..."></textarea>
-
-  <button onclick="analyze()" style="margin-top:10px; padding:10px 15px;">
-    Analyze
-  </button>
-
-  <div id="result" style="margin-top:15px;"></div>
-</section>
-
-<script>
-function analyze() {
-  document.getElementById("result").innerHTML = `
-    <h3>Common Red Flags</h3>
-    <ul>
-      <li>Urgent language pushing immediate action</li>
-      <li>Threats like account suspension or penalties</li>
-      <li>No personal details (name, account ID)</li>
-      <li>Requests to verify or click links quickly</li>
-    </ul>
-    <p><strong>Tip:</strong> Legitimate organizations rarely pressure users this way.</p>
-  `;
-}
-</script>
