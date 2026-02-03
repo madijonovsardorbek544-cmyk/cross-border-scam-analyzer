@@ -28,3 +28,8 @@ How to detect it:
 The message does not include the user's real name.
 It does not specify which account is affected.
 It pushes immediate action without explanation.
+Cross-border adaptation:
+This scam adapts to different countries by changing the authority it imitates.
+In some countries, scammers pretend to be banks or government agencies.
+In others, they impersonate universities, scholarship programs, or visa services.
+Although the wording changes, the goal remains the same: create fear and force quick action.
