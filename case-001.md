@@ -34,3 +34,12 @@ This scam adapts to different countries by changing the authority it imitates.
 In some countries, scammers pretend to be banks or government agencies.
 In others, they impersonate universities, scholarship programs, or visa services.
 Although the wording changes, the goal remains the same: create fear and force quick action.
+
+Cross-country comparison:
+
+| Country/Region | Fake Authority Used        | Main Trigger        |
+|----------------|----------------------------|---------------------|
+| United States  | Bank or tech company       | Account suspension  |
+| Europe         | Government or tax office   | Legal consequences  |
+| Asia           | University or exam board   | Academic penalties  |
+| Global         | Online service provider    | Immediate action    |
