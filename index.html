@@ -79,3 +79,34 @@
 
 </body>
 </html>
+<section>
+  <h2>Check a Suspicious Message</h2>
+  <p>
+    Paste a message you received to learn common warning signs.
+    This tool does not collect or store any data.
+  </p>
+
+  <textarea id="msg" rows="6" style="width:100%; padding:10px;"
+    placeholder="Paste the message here..."></textarea>
+
+  <button onclick="analyze()" style="margin-top:10px; padding:10px 15px;">
+    Analyze
+  </button>
+
+  <div id="result" style="margin-top:15px;"></div>
+</section>
+
+<script>
+function analyze() {
+  document.getElementById("result").innerHTML = `
+    <h3>Common Red Flags</h3>
+    <ul>
+      <li>Urgent language pushing immediate action</li>
+      <li>Threats like account suspension or penalties</li>
+      <li>No personal details (name, account ID)</li>
+      <li>Requests to verify or click links quickly</li>
+    </ul>
+    <p><strong>Tip:</strong> Legitimate organizations rarely pressure users this way.</p>
+  `;
+}
+</script>
