@@ -80,9 +80,17 @@
           <h2>Check a Suspicious Message</h2>
           <p>Paste a message you received. This tool runs in your browser and does not store data.</p>
           <hr>
+          <label class="tag" style="display:inline-block;margin-bottom:10px;">Target region</label>
+<select id="region" style="width:100%;padding:10px;border-radius:14px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.25);color:#eaf0ff;">
+  <option value="global">Global (default)</option>
+  <option value="us">United States</option>
+  <option value="eu">Europe</option>
+  <option value="asia">Asia</option>
+</select>
           <textarea id="msg" placeholder="Paste the message here..."></textarea>
           <div class="btn-row">
             <button class="primary" id="analyzeBtn">Analyze</button>
+            <button class="ghost" id="reportBtn">Report a scam</button>
             <button class="ghost" id="clearBtn">Clear</button>
             <span class="tag">No data stored</span>
           </div>
