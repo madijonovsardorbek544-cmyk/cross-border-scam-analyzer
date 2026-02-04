@@ -1,5 +1,22 @@
 function clamp(n,min,max){ return Math.max(min, Math.min(max,n)); }
-
+const REGION_PROFILES = {
+  global: {
+    authority: ["online service provider", "support team", "security team"],
+    trigger: "Immediate action + account fear"
+  },
+  us: {
+    authority: ["bank", "tech company", "delivery service"],
+    trigger: "Account suspension / fraud alert"
+  },
+  eu: {
+    authority: ["government", "tax office", "police"],
+    trigger: "Legal consequences / fines"
+  },
+  asia: {
+    authority: ["university", "exam board", "scholarship office"],
+    trigger: "Academic penalties / enrollment risk"
+  }
+};
 function analyzeText(text){
   const t = (text || "").trim();
   if(!t) return {score:0, level:"No input", color:"#b8c3e6", reasons:[], tips:[]};
@@ -70,10 +87,25 @@ function highlight(text){
   }
   return out;
 }
-
 function run(){
   const input = document.querySelector("#msg").value;
+  const region = (document.querySelector("#region")?.value) || "global";
+  const profile = REGION_PROFILES[region] || REGION_PROFILES.global;
+
   const res = analyzeText(input);
+
+  // Add region lens: if text includes region-related authority words, boost score slightly
+  const lower = (input||"").toLowerCase();
+  const authorityHit = profile.authority.some(a => lower.includes(a.split(" ")[0]));
+  if(authorityHit) {
+    res.score = clamp(res.score + 6, 0, 100);
+    res.reasons.push("Matches region-specific authority pattern");
+  }
+
+  // Recompute level based on final score
+  if(res.score >= 70){ res.level="High risk"; res.color="var(--bad)"; }
+  else if(res.score >= 40){ res.level="Medium risk"; res.color="var(--warn)"; }
+  else { res.level="Low risk"; res.color="var(--ok)"; }
 
   document.querySelector("#riskLevel").textContent = res.level;
   document.querySelector("#riskScore").textContent = `${res.score}/100`;
@@ -81,10 +113,21 @@ function run(){
 
   setMeter(res.score, res.color);
 
+  // Region explanation box
   const reasonsEl = document.querySelector("#reasons");
-  reasonsEl.innerHTML = res.reasons.length
-    ? `<ul class="list">${res.reasons.map(x=>`<li>${x}</li>`).join("")}</ul>`
-    : `<p class="note">No obvious red flags detected. Still be careful and verify via official sources.</p>`;
+  const regionExplain = `
+    <div class="note">
+      <strong>Cross-border lens:</strong> In this region, scammers often imitate <strong>${profile.authority.join(", ")}</strong>.
+      The common trigger is: <strong>${profile.trigger}</strong>.
+    </div>
+    <hr>
+  `;
+
+  reasonsEl.innerHTML = regionExplain + (
+    res.reasons.length
+      ? `<ul class="list">${res.reasons.map(x=>`<li>${x}</li>`).join("")}</ul>`
+      : `<p class="note">No obvious red flags detected. Still verify via official sources.</p>`
+  );
 
   const tipsEl = document.querySelector("#tips");
   tipsEl.innerHTML = `<ul class="list">${res.tips.map(x=>`<li>${x}</li>`).join("")}</ul>`;
@@ -96,7 +139,6 @@ function run(){
 
   document.querySelector("#resultBox").style.display = "block";
 }
-
 function clearAll(){
   document.querySelector("#msg").value = "";
   document.querySelector("#resultBox").style.display = "none";
@@ -104,6 +146,12 @@ function clearAll(){
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    const reportBtn = document.querySelector("#reportBtn");
+  if(reportBtn){
+    reportBtn.addEventListener("click", () => {
+      window.open("https://github.com/madijonovsardorbek544-cmyk/cross-border-scam-analyzer/issues/new?title=Scam%20Report&body=Paste%20the%20scam%20message%20here%20(without%20personal%20info).%0A%0ARegion:%20%0APlatform%20(email/sms/social):%20%0AWhy%20it%20felt%20suspicious:%20", "_blank");
+    });
+  }
   document.querySelector("#analyzeBtn").addEventListener("click", run);
   document.querySelector("#clearBtn").addEventListener("click", clearAll);
 });
