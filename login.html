@@ -9,7 +9,7 @@
 <body>
   <div class="nav">
     <div class="container nav-inner">
-      <div class="brand"><span>CBSA</span><span class="badge">Account</span></div>
+      <div class="brand"><span>CBSA</span><span class="badge">Secure Login</span></div>
       <div class="links">
         <a href="./index.html">Home</a>
         <a href="./cases.html">Cases</a>
@@ -20,42 +20,28 @@
 
   <div class="section">
     <div class="container grid">
-      <div class="card">
-        <div class="card-inner">
-          <h2>Create account</h2>
-          <p class="note">Email-only. We do not collect phone numbers. Age is stored as a group, not exact age.</p>
-          <hr>
+      <div class="card"><div class="card-inner">
+        <h2>Create account</h2>
+        <p class="note">Email-only. No phone. We store age as a group, not exact age.</p>
+        <hr>
+        <input id="suEmail" type="email" placeholder="Email" class="input" />
+        <input id="suPass" type="password" placeholder="Password" class="input" />
+        <button id="signupBtn">Sign up</button>
+        <p id="suMsg" class="note"></p>
+      </div></div>
 
-          <label class="tag">Email</label>
-          <input id="suEmail" type="email" placeholder="you@example.com" style="width:100%;padding:10px;border-radius:14px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.25);color:#eaf0ff;margin:8px 0 12px;" />
-
-          <label class="tag">Password</label>
-          <input id="suPass" type="password" placeholder="••••••••" style="width:100%;padding:10px;border-radius:14px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.25);color:#eaf0ff;margin:8px 0 12px;" />
-
-          <button id="signupBtn">Sign up</button>
-          <p id="suMsg" class="note"></p>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-inner">
-          <h2>Log in</h2>
-          <p class="note">If you already have an account, log in here.</p>
-          <hr>
-
-          <label class="tag">Email</label>
-          <input id="liEmail" type="email" placeholder="you@example.com" style="width:100%;padding:10px;border-radius:14px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.25);color:#eaf0ff;margin:8px 0 12px;" />
-
-          <label class="tag">Password</label>
-          <input id="liPass" type="password" placeholder="••••••••" style="width:100%;padding:10px;border-radius:14px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.25);color:#eaf0ff;margin:8px 0 12px;" />
-
-          <button class="ghost" id="loginBtn">Log in</button>
-          <p id="liMsg" class="note"></p>
-        </div>
-      </div>
+      <div class="card"><div class="card-inner">
+        <h2>Log in</h2>
+        <p class="note">Access your dashboard.</p>
+        <hr>
+        <input id="liEmail" type="email" placeholder="Email" class="input" />
+        <input id="liPass" type="password" placeholder="Password" class="input" />
+        <button class="ghost" id="loginBtn">Log in</button>
+        <p id="liMsg" class="note"></p>
+      </div></div>
     </div>
 
-    <div class="footer">© 2026 Cross-Border Scam Analyzer | Student Project</div>
+    <div class="footer">© 2026 CBSA | Student Project</div>
   </div>
 
   <script type="module">
@@ -73,9 +59,7 @@
         await createUserWithEmailAndPassword(auth, email, pass);
         suMsg.textContent = "Account created. Redirecting…";
         location.href = "./dashboard.html";
-      }catch(e){
-        suMsg.textContent = e.message;
-      }
+      }catch(e){ suMsg.textContent = e.message; }
     });
 
     document.querySelector("#loginBtn").addEventListener("click", async () => {
@@ -86,10 +70,13 @@
         await signInWithEmailAndPassword(auth, email, pass);
         liMsg.textContent = "Logged in. Redirecting…";
         location.href = "./dashboard.html";
-      }catch(e){
-        liMsg.textContent = e.message;
-      }
+      }catch(e){ liMsg.textContent = e.message; }
     });
   </script>
+
+  <style>
+    .input{width:100%;padding:10px;border-radius:14px;border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.25);color:#eaf0ff;margin:8px 0 12px;}
+  </style>
 </body>
 </html>
