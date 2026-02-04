@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CBSA — Dashboard</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="nav">
+    <div class="container nav-inner">
+      <div class="brand"><span>CBSA</span><span class="badge">Dashboard</span></div>
+      <div class="links">
+        <a href="./index.html">Home</a>
+        <a href="./cases.html">Cases</a>
+        <a href="./privacy.html">Privacy</a>
+        <a href="#" id="logout">Logout</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="container grid">
+      <div class="card">
+        <div class="card-inner">
+          <h2>Your profile</h2>
+          <p class="note">We store only: age group, region, interests. No phone, no exact age.</p>
+          <hr>
+
+          <div class="row">
+            <span class="tag">Signed in as</span>
+            <span class="tag" id="userEmail">…</span>
+          </div>
+
+          <label class="tag" style="display:inline-block;margin-top:14px;">Age group</label>
+          <select id="ageGroup" style="width:100%;padding:10px;border-radius:14px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.25);color:#eaf0ff;margin:8px 0 12px;">
+            <option value="u13">Under 13</option>
+            <option value="13-15">13–15</option>
+            <option value="16-18">16–18</option>
+            <option value="19-24">19–24</option>
+            <option value="25-34">25–34</option>
+            <option value="35+">35+</option>
+          </select>
+
+          <label class="tag">Region</label>
+          <select id="region" style="width:100%;padding:10px;border-radius:14px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.25);color:#eaf0ff;margin:8px 0 12px;">
+            <option value="global">Global</option>
+            <option value="us">United States</option>
+            <option value="eu">Europe</option>
+            <option value="asia">Asia</option>
+            <option value="other">Other</option>
+          </select>
+
+          <label class="tag">Interests (comma separated)</label>
+          <input id="interests" placeholder="cybersecurity, scholarships, volunteering, international relations"
+            style="width:100%;padding:10px;border-radius:14px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.25);color:#eaf0ff;margin:8px 0 12px;" />
+
+          <button id="saveProfile">Save profile</button>
+          <p id="saveMsg" class="note"></p>
+
+          <hr>
+          <button class="ghost" id="deleteData">Delete my data</button>
+          <p class="note">This removes your saved profile from the database.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-inner">
+          <h2>Opportunity Generator</h2>
+          <p class="note">Age-appropriate ideas for academic + personal development.</p>
+          <hr>
+
+          <button class="ghost" id="genBtn">Generate opportunities</button>
+          <div id="out" style="margin-top:12px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">© 2026 Cross-Border Scam Analyzer | Student Project</div>
+  </div>
+
+  <script type="module">
+    import { auth, db } from "./firebase.js";
+    import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+    import { doc, getDoc, setDoc, deleteDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+    const $ = (s)=>document.querySelector(s);
+    const out = $("#out");
+
+    const OPPS = {
+      "u13": [
+        "Cyber safety basics: phishing, strong passwords, 2FA (family-friendly).",
+        "Build: a simple 'scam warning poster' page (HTML/CSS).",
+        "Join: school tech club / beginner coding challenges."
+      ],
+      "13-15": [
+        "Learn: OSINT basics ethically (verify sources, not hacking).",
+        "Build: a scam keyword highlighter + risk score (JS).",
+        "Compete: beginner cybersecurity quizzes / coding contests."
+      ],
+      "16-18": [
+        "Start: a research mini-report on scam trends by region.",
+        "Build: company legitimacy checklist tool + case library.",
+        "Apply: youth programs, scholarships, summer workshops."
+      ],
+      "19-24": [
+        "Build: portfolio with auth + privacy-first profile system.",
+        "Create: threat-model writeup + security documentation.",
+        "Seek: internships, labs, open-source contributions."
+      ],
+      "25-34": [
+        "Add: advanced verification workflow (domains, email headers guide).",
+        "Create: professional policy pages (privacy, terms, ethics).",
+        "Network: community events, security meetups, volunteering."
+      ],
+      "35+": [
+        "Focus: professional awareness training modules for teams.",
+        "Build: structured case framework + reporting pipeline.",
+        "Publish: public guides and workshop slides."
+      ]
+    };
+
+    function renderOpps(age, region, interests){
+      const base = OPPS[age] || OPPS["16-18"];
+      const tags = (interests||"").split(",").map(x=>x.trim().toLowerCase()).filter(Boolean);
+
+      const extra = [];
+      if(tags.includes("international relations") || tags.includes("ir")){
+        extra.push("IR angle: Compare how scams exploit institutions (banks vs governments vs universities).");
+        extra.push("Write: a 1-page policy note on cross-border scam prevention.");
+      }
+      if(tags.includes("scholarships")){
+        extra.push("Scholarship safety: verify domains, never pay fees via random messages.");
+      }
+      if(tags.includes("cybersecurity") || tags.includes("cyber")){
+        extra.push("Cyber angle: build a 'risk scoring rubric' and explain it transparently.");
+      }
+      extra.push(`Region focus (${region}): add one case example tailored to your region.`);
+
+      return [...base, ...extra];
+    }
+
+    $("#logout").addEventListener("click", async (e)=>{
+      e.preventDefault();
+      await signOut(auth);
+      location.href = "./login.html";
+    });
+
+    onAuthStateChanged(auth, async (user)=>{
+      if(!user){ location.href = "./login.html"; return; }
+      $("#userEmail").textContent = user.email;
+
+      const ref = doc(db, "users", user.uid);
+      const snap = await getDoc(ref);
+      if(snap.exists()){
+        const d = snap.data();
+        $("#ageGroup").value = d.ageGroup || "16-18";
+        $("#region").value = d.region || "global";
+        $("#interests").value = d.interests || "";
+      }
+    });
+
+    $("#saveProfile").addEventListener("click", async ()=>{
+      const user = auth.currentUser;
+      if(!user) return;
+
+      $("#saveMsg").textContent = "";
+      const ref = doc(db, "users", user.uid);
+
+      await setDoc(ref, {
+        ageGroup: $("#ageGroup").value,
+        region: $("#region").value,
+        interests: $("#interests").value,
+        updatedAt: serverTimestamp()
+      }, { merge: true });
+
+      $("#saveMsg").textContent = "Saved.";
+    });
+
+    $("#deleteData").addEventListener("click", async ()=>{
+      const user = auth.currentUser;
+      if(!user) return;
+      await deleteDoc(doc(db, "users", user.uid));
+      $("#saveMsg").textContent = "Your saved profile data was deleted.";
+      $("#interests").value = "";
+    });
+
+    $("#genBtn").addEventListener("click", ()=>{
+      const age = $("#ageGroup").value;
+      const region = $("#region").value;
+      const interests = $("#interests").value;
+
+      const list = renderOpps(age, region, interests);
+      out.innerHTML = `
+        <div class="result">
+          <div class="row"><span class="tag">Opportunities</span><span class="tag">Age-appropriate</span></div>
+          <hr>
+          <ul class="list">${list.map(x=>`<li>${x}</li>`).join("")}</ul>
+        </div>
+      `;
+    });
+  </script>
+</body>
+</html>
