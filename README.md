@@ -1,5 +1,17 @@
 # Cross-Border Scam Safety for International Students
 
+## Live Demo
+
+Use the app here:
+
+https://madijonovsardorbek544-cmyk.github.io/cross-border-scam-analyzer/
+
+The live site is hosted with GitHub Pages and automatically redeploys when changes are pushed to the `main` branch.
+
+## Repository Website Link
+
+After GitHub Pages is enabled, add the live demo URL to the repository “About” section website field so visitors can open the app directly from the repo header.
+
 ## One-line positioning
 
 A privacy-first scam prevention MVP that helps international students, families, and education institutions detect risk indicators in scholarship, visa, admission, housing, payment, test-registration, document, and education-agent messages.
@@ -109,6 +121,30 @@ npm run dev
 npm run build
 npm test
 ```
+
+## Deployment
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the local Vite development server:
+
+```bash
+npm run dev
+```
+
+Create a production build for GitHub Pages:
+
+```bash
+npm run build
+```
+
+GitHub Pages deploys automatically through GitHub Actions when changes are pushed to the `main` branch. The deployment workflow builds the Vite app and publishes the `dist` folder to GitHub Pages.
+
+If the site does not appear after the workflow succeeds, go to **Repository Settings → Pages → Source → GitHub Actions** and confirm GitHub Pages is enabled for Actions-based deployments.
 
 ## Environment setup
 
