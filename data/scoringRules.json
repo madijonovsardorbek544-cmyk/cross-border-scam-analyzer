@@ -1,0 +1,21 @@
+{
+  "version": "2026-05-mvp",
+  "disclaimer": "Educational risk indicators for international-student scams; not proof of fraud or legal advice.",
+  "rubric": [
+    { "id": "urgency", "label": "Urgency pressure", "weight": 12, "description": "Deadlines, threats, countdowns, or pressure to act before verifying." },
+    { "id": "authority", "label": "Authority impersonation", "weight": 14, "description": "Claims to represent a university, embassy, immigration office, testing body, landlord, bank, or scholarship committee." },
+    { "id": "sensitiveData", "label": "Sensitive data request", "weight": 16, "description": "Asks for passport, visa, bank, login, transcript, ID, or family financial information." },
+    { "id": "payment", "label": "Payment or fee request", "weight": 16, "description": "Requests deposits, processing fees, gift cards, crypto, wire transfer, or unofficial payment methods." },
+    { "id": "linkDomain", "label": "Suspicious link/domain", "weight": 12, "description": "Short links, lookalike domains, non-official email domains, or links mismatched with the claimed institution." },
+    { "id": "vagueInstitution", "label": "Vague institution/name", "weight": 8, "description": "Generic office names, no named contact, or institution details that cannot be independently checked." },
+    { "id": "genericGreeting", "label": "Generic greeting", "weight": 6, "description": "Uses phrases like dear applicant/student instead of an application-specific identity." },
+    { "id": "rewardThreat", "label": "Unrealistic reward/threat", "weight": 10, "description": "Guaranteed scholarships/admission/visa or threats of cancellation, deportation, or account suspension." },
+    { "id": "crossBorder", "label": "Cross-border adaptation pattern", "weight": 6, "description": "Mentions foreign currency, visa status, travel timeline, international courier, or unfamiliar local process to reduce scrutiny." }
+  ],
+  "levels": [
+    { "level": "low", "min": 0, "max": 24 },
+    { "level": "medium", "min": 25, "max": 49 },
+    { "level": "high", "min": 50, "max": 74 },
+    { "level": "critical", "min": 75, "max": 100 }
+  ]
+}

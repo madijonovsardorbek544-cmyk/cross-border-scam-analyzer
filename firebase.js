@@ -1,19 +1,19 @@
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+// Backward-compatible Firebase module for legacy imports.
+// The React MVP uses src/firebase.ts. Keep this file script-tag free.
+import { initializeApp, getApps } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
+import { getAuth } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
+import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
 
-  // Your web app's Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyAI2Z3yYDL_7SmeXedKlwMgr8EUl07DHJY",
-    authDomain: "cross-border-scam-analyzer.firebaseapp.com",
-    projectId: "cross-border-scam-analyzer",
-    storageBucket: "cross-border-scam-analyzer.firebasestorage.app",
-    messagingSenderId: "842057422979",
-    appId: "1:842057422979:web:cd4bd555c2873a951ce3b6"
-  };
+const firebaseConfig = {
+  apiKey: window.__FIREBASE_CONFIG__?.apiKey,
+  authDomain: window.__FIREBASE_CONFIG__?.authDomain,
+  projectId: window.__FIREBASE_CONFIG__?.projectId,
+  storageBucket: window.__FIREBASE_CONFIG__?.storageBucket,
+  messagingSenderId: window.__FIREBASE_CONFIG__?.messagingSenderId,
+  appId: window.__FIREBASE_CONFIG__?.appId,
+};
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-</script>
+export const isFirebaseConfigured = Boolean(firebaseConfig.apiKey && firebaseConfig.authDomain && firebaseConfig.projectId && firebaseConfig.appId);
+export const app = isFirebaseConfigured ? (getApps()[0] || initializeApp(firebaseConfig)) : undefined;
+export const auth = app ? getAuth(app) : undefined;
+export const db = app ? getFirestore(app) : undefined;
