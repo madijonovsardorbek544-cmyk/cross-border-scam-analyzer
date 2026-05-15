@@ -1,0 +1,14 @@
+import { useState } from 'react';
+import { cases } from '../data/appData';
+import { resourcePacks } from '../data/resourcePacks';
+import { CaseCard } from '../components/CaseCard';
+import { EmptyState } from '../components/EmptyState';
+
+export function CaseLibrary() {
+  const [filters, setFilters] = useState({ scamType: '', platform: '', sourceType: '', tactic: '' });
+  const [query, setQuery] = useState('');
+  const filtered = cases.filter((item) => (!filters.scamType || item.scamType === filters.scamType) && (!filters.platform || item.platform === filters.platform) && (!filters.sourceType || item.sourceType === filters.sourceType) && (!filters.tactic || item.psychologicalTactics.includes(filters.tactic)) && (!query || JSON.stringify(item).toLowerCase().includes(query.toLowerCase())));
+  const scamTypes = Array.from(new Set(cases.map((c) => c.scamType))).sort();
+  const tactics = Array.from(new Set(cases.flatMap((c) => c.psychologicalTactics))).sort();
+  return <main className="stack"><section className="panel"><p className="eyebrow">Case library</p><h1>Study-abroad scam patterns for awareness training.</h1><p className="notice">Examples are public, verified, or synthetic training materials. Use them to teach risk indicators, not to accuse any person.</p><div className="filters"><label>Search<input value={query} onChange={(e: { target: HTMLInputElement }) => setQuery(e.target.value)} placeholder="visa, housing, IELTS..." /></label><label>Scam type<select value={filters.scamType} onChange={(e: { target: HTMLSelectElement }) => setFilters({ ...filters, scamType: e.target.value })}><option value="">All</option>{scamTypes.map((x) => <option key={x}>{x}</option>)}</select></label><label>Source<select value={filters.sourceType} onChange={(e: { target: HTMLSelectElement }) => setFilters({ ...filters, sourceType: e.target.value })}><option value="">All</option><option>public</option><option>example</option><option>synthetic</option><option>verified</option></select></label><label>Tactic<select value={filters.tactic} onChange={(e: { target: HTMLSelectElement }) => setFilters({ ...filters, tactic: e.target.value })}><option value="">All</option>{tactics.map((x) => <option key={x}>{x}</option>)}</select></label></div></section><section className="panel"><h2>Resource packs connected to cases</h2><div className="grid four">{resourcePacks.map((pack) => <article key={pack.id}><h3>{pack.title}</h3><p>{pack.commonScams.slice(0, 2).join('; ')}</p><div className="tags">{pack.relatedCaseTags.slice(0, 4).map((tag) => <span key={tag}>{tag}</span>)}</div></article>)}</div></section>{filtered.length ? <section className="case-grid">{filtered.map((item) => <CaseCard key={item.id} item={item} />)}</section> : <EmptyState title="No matching cases" body="Try broadening the filters or clearing the search query." />}</main>;
+}

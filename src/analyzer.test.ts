@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { analyzeMessage } from './analyzer';
 import { redactSensitiveText } from './redaction';
 import { createAnonymizedReportPayload, payloadContainsRawSensitiveData } from './lib/privacy/reportSchema';
+import { createAnonymousFeedbackRecord, feedbackContainsRawMessage } from './lib/feedback/feedbackSchema';
 import type { CheckInput } from './types';
 
 const base: CheckInput = { language: 'English', countryRegion: 'India', destinationCountry: 'Canada', platform: 'email', context: 'visa', message: '' };
@@ -127,6 +128,14 @@ describe('redactSensitiveText', () => {
     expect(result.redactedText).not.toContain('1234567890');
     expect(result.redactedText).not.toContain('123 Main Street');
     expect(result.highRiskMarkers).toContain('bank/account words near numbers');
+  });
+
+  it('keeps raw messages out of anonymous feedback records', () => {
+    const input = { ...base, message: 'We detected unauthorized login activity on your account. Your card is temporarily locked. Click here immediately to verify your identity.' };
+    const result = analyzeMessage(input);
+    const feedback = createAnonymousFeedbackRecord({ helpful: 'yes', verifiedOfficialChannel: 'not yet', calibration: 'accurate', category: 'useful' }, result, input.context, input.platform);
+    expect(feedbackContainsRawMessage(feedback)).toBe(false);
+    expect(JSON.stringify(feedback)).not.toContain(input.message);
   });
 
   it('keeps raw sensitive data out of report payload creation', () => {

@@ -1,167 +1,131 @@
 # Cross-Border Scam Safety for International Students
 
-## Live Demo
-
-Use the app here:
+## Live public MVP
 
 https://madijonovsardorbek544-cmyk.github.io/cross-border-scam-analyzer/
 
-The live site is hosted with GitHub Pages and automatically redeploys when changes are pushed to the `main` branch.
+This is a public MVP hosted on GitHub Pages. It is being built toward a validated, institution-ready scam safety platform for international students, families, counselors, education centers, and institutions. It detects **risk indicators** and provides safer verification steps; it does not claim certainty or replace legal, immigration, financial, emergency, or law-enforcement help.
 
-## Repository Website Link
+## Positioning
 
-After GitHub Pages is enabled, add the live demo URL to the repository “About” section website field so visitors can open the app directly from the repo header.
-
-## One-line positioning
-
-A privacy-first scam prevention MVP that helps international students, families, and education institutions detect risk indicators in scholarship, visa, admission, housing, payment, test-registration, document, and education-agent messages.
-
-## Problem
-
-International students and families often make high-stakes decisions across unfamiliar legal, academic, financial, and housing systems. Scammers exploit that uncertainty with fake scholarships, visa threats, tuition account changes, housing deposits, test score upgrades, document legalization offers, fake university portals, and impersonated agents.
-
-## Target users
-
-- International students applying abroad
-- Parents and families helping with payments and documents
-- High schools and counselors supporting applicants
-- Education centers and advising organizations
-- Admissions counselors and international student offices
-- Scholarship and student support programs
+A privacy-first, evaluation-driven scam prevention MVP for study-abroad messages involving scholarships, visas, admissions, housing, payments, testing, documents, and education agents.
 
 ## Why international students
 
-The risk is cross-border and context-specific: students may be far from the destination institution, under deadline pressure, translating unfamiliar bureaucracy, and receiving messages across email, SMS, WhatsApp, Telegram, Instagram, phone calls, and unofficial websites. A generic scam checker does not explain study-abroad verification steps or institution-level prevention.
+International students and families make high-stakes decisions across unfamiliar countries, institutions, payment systems, visa processes, languages, time zones, and communication channels. Scammers exploit this with fake scholarships, visa threats, tuition diversion, fake housing deposits, test score upgrade offers, fake portals, and impersonated agents. A generic scam checker does not provide study-abroad verification scripts or institution-level prevention workflows.
 
-## MVP features
+## Current MVP capabilities
 
-- Browser-first scam checker with score, risk level, detected tactics, fake authority type, sensitive-data risk, payment risk, link/domain risk, cross-border adaptation pattern, confidence level, false-positive warning, safe next steps, verification script, and “what not to do” guidance.
-- Redaction-first report flow with preview, consent checkbox, report ID, Firebase/local demo mode, and no raw message storage by default.
-- Structured case library with 25+ synthetic/example study-abroad scam patterns and filters by scam type, platform, language, origin, destination, target group, and tactic.
-- Official resources model for government visa pages, testing providers, EducationUSA, and pilot-specific institution templates.
-- Institution pilot dashboard with anonymized sample/local reports, trend breakdowns, latest redacted reports, interventions, and downloadable Markdown awareness report.
-- Institution pilot page describing 30-day validation, collected/not-collected data, deliverables, and pricing hypothesis.
-
-
-## Screenshots
-
-Screenshots should be added after the public GitHub Pages site is reviewed on desktop and mobile. Do not add mock screenshots or images that imply fake users, fake partners, or unverified live institution data.
+- Local-first scam checker with score, level, top reasons, safe next steps, and copyable verification scripts.
+- Counselor / Analyst View showing all matched rules, evidence, rule weights, combination boosts, risk areas, false-positive warning, and score-level explanation.
+- Evaluation benchmark with 60 labeled examples covering high-risk phishing, international-student scams, legitimate messages, borderline messages, and adversarial wording.
+- Official resource packs for U.S., Canada, UK, Australia, testing providers, housing deposits, scholarship fees, and education-agent verification.
+- Case library connected to relevant resource packs.
+- Redacted report flow with consent and no raw message storage by default.
+- Anonymous feedback loop that stores structured calibration signals locally by default and never stores the raw message.
+- Pilot-ready institution dashboard with date range, sample/local/Firebase source mode, feedback insights, false-positive/missed-risk categories, recommended interventions, and Markdown report export.
+- Validation and pilot documentation for counselors, institutions, privacy review, and product requirements.
 
 ## Architecture
 
 ```text
 React + Vite + TypeScript
-├── src/main.tsx                     # Single-page MVP UX and page routing
-├── src/lib/analyzer/rules.ts         # Extensible rule definitions
-├── src/lib/analyzer/analyzeMessage.ts# Structured risk analysis
-├── src/lib/analyzer/scoreLevels.ts   # Score, level, confidence helpers
-├── src/lib/analyzer/safeNextSteps.ts # Verification and safety guidance
-├── src/lib/privacy/redaction.ts      # Best-effort sensitive data redaction
-├── src/lib/privacy/reportSchema.ts   # Redacted report payload creation
-├── data/cases.json                   # Seed case library
-├── data/officialResources.json       # Official and pilot resource entries
-├── firestore.rules                   # Restrictive draft Firestore rules
-└── src/analyzer.test.ts              # Analyzer and privacy tests
+├── src/main.tsx                         # Hash-based app routing for GitHub Pages
+├── src/pages/                           # Landing, checker, cases, report, dashboard, pilot, methodology, privacy
+├── src/components/                      # Shared UI components
+├── src/lib/analyzer/                    # Transparent rules, scoring, safe next steps
+├── src/evaluation/examples.ts           # 60 labeled benchmark examples
+├── src/evaluation/evaluateAnalyzer.test.ts # Evaluation regression tests
+├── src/data/resourcePacks.ts            # Structured official resource packs
+├── src/lib/feedback/feedbackSchema.ts   # Anonymous feedback schema/storage
+├── src/lib/privacy/                     # Redaction and anonymized report payloads
+├── data/cases.json                      # Seed case library
+├── data/officialResources.json          # Official and pilot resource entries
+└── docs/                                # Validation, pilot, interview, privacy threat model, PRD
 ```
+
+Routing remains hash-based and the Vite base path remains `/cross-border-scam-analyzer/` for GitHub Pages.
+
+## Evaluation-driven analyzer
+
+The analyzer uses transparent rules and combination boosts rather than fake AI claims. Rules cover urgency, account lock threats, identity verification, click/action pressure, credential/OTP risk, financial account/card risk, authority impersonation, sensitive-data requests, payment pressure, suspicious links/domains, unofficial payment methods, vague institutions, unrealistic guarantees, visa threats, housing scarcity, test-score upgrade claims, personal-account payments, cross-border bureaucracy confusion, language mismatch, and platform risk.
+
+The benchmark tests assert that:
+
+- High-risk examples are not scored low.
+- Low-risk legitimate messages are not high/critical.
+- Minimum and maximum expected score boundaries are respected.
+- Expected tactics appear when listed.
+
+## Resource packs
+
+Resource packs provide structured safer-verification guidance for:
+
+- U.S. student visa safety
+- Canada study permit safety
+- UK student visa/CAS safety
+- Australia student visa safety
+- IELTS/TOEFL/SAT testing safety
+- Housing deposit safety
+- Scholarship fee safety
+- Education-agent verification safety
+
+Each pack includes who it helps, common scams, official verification steps, normal vs. suspicious requests, a safe script, related case tags, and official resource IDs.
+
+## Feedback loop
+
+After a checker result, users can submit anonymous feedback:
+
+- Was this helpful? yes/no
+- Did you verify through an official channel? yes/no/not yet
+- Did the result feel too low, accurate, or too high?
+- Optional category: missed risk, false alarm, unclear wording, useful
+
+Feedback is stored locally by default. If Firebase is configured, only structured feedback fields are submitted. Raw messages are not stored in feedback.
+
+## Institution pilot workflow
+
+A 30-day pilot should:
+
+1. Confirm official payment, admissions, visa, housing, testing, and counselor escalation resources.
+2. Share the checker and awareness materials with a limited student group.
+3. Collect only consented redacted reports and anonymous structured feedback.
+4. Review dashboard trends, false-positive categories, missed-risk categories, and recommended interventions.
+5. Export a Markdown awareness report and decide whether to continue, revise, expand, or stop.
+
+Dashboard source modes make clear when data is sample, local browser data, or Firebase-backed.
+
+## Documentation
+
+- [Validation plan](docs/VALIDATION_PLAN.md)
+- [Pilot playbook](docs/PILOT_PLAYBOOK.md)
+- [Counselor interview guide](docs/COUNSELOR_INTERVIEW_GUIDE.md)
+- [Privacy threat model](docs/PRIVACY_THREAT_MODEL.md)
+- [Product requirements](docs/PRODUCT_REQUIREMENTS.md)
+- [Security policy](SECURITY.md)
 
 ## Privacy principles
 
 - Analyze pasted messages locally in the browser by default.
 - Do not store raw suspicious messages by default.
 - Require redaction preview and consent before submitting anonymized reports.
-- Submit only redacted fields to Firebase when configured.
-- Use local demo storage when Firebase is not configured and label it clearly.
+- Store only structured feedback fields, never raw messages, in feedback.
+- Label sample/local/Firebase dashboard modes clearly.
 - Treat minors and students as vulnerable users; encourage review by trusted adults or counselors.
 - Avoid public GitHub issues for scam messages or personal data.
 
-## Data model
-
-### `CheckInput`
-
-Includes suspicious message, language, country/region, destination country, platform, context, optional claimed institution/authority, and optional sender domain/link.
-
-### `CheckResult`
-
-Returns structured output: score, level, detected tactics, fake authority type, sensitive-data risk, payment risk, link/domain risk, cross-border adaptation pattern, confidence level, false-positive warning, safe next steps, official verification script, and “what not to do” list.
-
-### `AnonymizedReportPayload`
-
-Stores a generated report ID, ISO timestamp, redacted message, redaction counts, high-risk markers, platform/context/country metadata, score/level, consent version, and deletion instructions. It intentionally excludes raw message fields.
-
-## Scoring methodology
-
-The MVP uses transparent rule weights rather than black-box AI claims. Rules include urgency pressure, authority impersonation, sensitive-data request, payment/fee request, suspicious link/domain, unofficial payment method, generic greeting, vague institution, unrealistic guarantee, deportation/visa threat, housing scarcity pressure, test score upgrade claim, crypto/gift card/wire transfer, personal account payment, cross-border bureaucracy confusion, language mismatch, and platform risk.
-
-Scores are educational risk indicators. The product must not make certainty claims about fraud.
-
-## Institution pilot model
-
-A 30-day pilot should:
-
-1. Replace template resources with the institution’s official payment, admissions, visa, housing, and counselor contacts.
-2. Share the free checker with students and parents during admissions/pre-arrival periods.
-3. Collect only consented, redacted, anonymized reports.
-4. Review dashboard trends with counselors or student support staff.
-5. Export an awareness report with top scam categories, platforms, fake authorities, and recommended interventions.
-
-## Business model hypothesis
-
-Students use the checker for free. Institutions may pay for dashboards, awareness reports, verified resources, student safety pages, and anonymized scam trend intelligence.
-
-Potential validation pricing:
-
-- Free student checker
-- School pilot: **$500–$2,000/year**
-- Institution dashboard: **$5,000–$10,000/year**
-
-## Million-dollar ARR path
-
-A possible path is **200 institutions × $5,000/year = $1M ARR**. This is a strategic business model hypothesis for validation, not an achieved result, guarantee, or investment claim.
-
-## Install, run, and test
+## Install, run, test, and build
 
 ```bash
 npm install
 npm run dev
-npm run build
 npm test
-```
-
-## Deployment
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Start the local Vite development server:
-
-```bash
-npm run dev
-```
-
-Create a production build for GitHub Pages:
-
-```bash
 npm run build
 ```
-
-GitHub Pages deploys automatically through GitHub Actions when changes are pushed to the `main` branch. The deployment workflow builds the Vite app and publishes the `dist` folder to GitHub Pages.
-
-If the site does not appear after the workflow succeeds, go to **Repository Settings → Pages → Source → GitHub Actions** and confirm GitHub Pages is enabled for Actions-based deployments.
-
-## Environment setup
-
-Copy `.env.example` to `.env.local` only if you want Firebase-backed anonymized report storage.
-
-```bash
-cp .env.example .env.local
-```
-
-The app runs without Firebase credentials. In that mode, report submission uses browser local storage and clearly displays “local demo mode.”
 
 ## Firebase setup
+
+The app runs without Firebase credentials. Configure Firebase only for consented redacted reports and structured anonymous feedback.
 
 Set these Vite environment variables in `.env.local` or your hosting provider:
 
@@ -172,60 +136,17 @@ Set these Vite environment variables in `.env.local` or your hosting provider:
 - `VITE_FIREBASE_MESSAGING_SENDER_ID`
 - `VITE_FIREBASE_APP_ID`
 
-Firebase web config values are public identifiers, not server secrets. Never commit service account keys.
+Firebase web config values are public identifiers, not server secrets. Never commit service account keys. Review Firestore rules, authentication, retention, and access controls before real pilots.
 
-## Firestore rules
+## Deployment
 
-`firestore.rules` is intentionally restrictive:
-
-- Anonymous or authenticated users may create redacted reports only.
-- `rawMessage`, `message`, `fullMessage`, `unredactedMessage`, and attachments are rejected.
-- Users can read/update/delete only their own profiles.
-- Institution/admin access is scoped to summaries and institution records.
-- Public reads of raw reports are denied.
-- Everything else is denied by default.
-
-Review and test rules before any real pilot.
-
-## Security policy
-
-See `SECURITY.md`. Do not submit private scam messages or vulnerability details in public GitHub issues.
-
-## Roadmap
-
-### Next 30 days
-
-- Validate scoring with 3–5 counselors or education center staff.
-- Replace template official resources for one pilot institution.
-- Add pre/post awareness survey questions.
-- Add counselor review workflow for redacted examples.
-- Test Firestore rules with emulator-based rule tests.
-
-### Days 31–60
-
-- Add authenticated institution admin view.
-- Add report deletion workflow by report ID.
-- Add localization and country-specific rule packs.
-- Add printable/PDF awareness report export.
-
-### Days 61–90
-
-- Run 1–3 small pilots with schools or advising organizations.
-- Measure student engagement, counselor workload, false positives, and prevented high-risk actions.
-- Package onboarding materials and security review checklist.
-
-## Validation plan
-
-- Interview counselors about the top recurring scam categories.
-- Observe whether students understand safe next steps without additional instruction.
-- Track anonymized report volume by category and platform.
-- Compare awareness survey scores before and after training.
-- Validate whether dashboard exports are useful enough for paid renewal conversations.
+GitHub Pages deployment should build the Vite app and publish `dist`. Keep the Vite base path as `/cross-border-scam-analyzer/`.
 
 ## Current limitations
 
-- Rule-based scoring can miss novel scams or over-score legitimate messages with deadlines/payment language.
+- Rule-based scoring can miss novel scams or over-score legitimate messages with deadline/payment language.
+- Benchmark examples are useful regression checks but are not a substitute for human validation.
 - Redaction is best effort and should not receive private documents or images.
-- Official resources require institution-specific replacement before real pilots.
+- Official resources require institution-specific review before real pilots.
 - Firebase setup and Firestore rules require production security review.
 - The MVP does not provide legal, immigration, financial, law-enforcement, or emergency assistance.
