@@ -70,6 +70,10 @@ export interface CheckResult {
   sensitiveDataRisk: RiskArea;
   paymentRisk: RiskArea;
   linkDomainRisk: RiskArea;
+  accountSecurityRisk: RiskArea;
+  credentialRisk: RiskArea;
+  financialAccountRisk: RiskArea;
+  actionPressureRisk: RiskArea;
   crossBorderAdaptationPattern: string;
   confidenceLevel: ConfidenceLevel;
   falsePositiveWarning: string;

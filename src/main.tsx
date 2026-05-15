@@ -148,7 +148,7 @@ function Checker() {
     if (!demo) return;
     setDemoId(id);
     setInput(demo.input);
-    setResult(analyzeMessage(demo.input));
+    setResult(null);
   };
   const reset = () => {
     setInput({ ...blankInput, message: '' });
@@ -164,7 +164,7 @@ function Checker() {
         <p className="notice">Educational tool only. It detects risk indicators, not certainty. Analysis runs locally in this browser unless you choose the separate redacted reporting flow.</p>
         <section className="demo-box" aria-labelledby="sample-heading">
           <h2 id="sample-heading">Try a sample message</h2>
-          <p className="muted">These are safe synthetic/demo examples. They are not real people, real partners, or verified incidents.</p>
+          <p className="muted">These are synthetic demo samples for education, based on common risk patterns. They are not real people, real partners, or verified incidents.</p>
           <div className="chip-row">
             {demoMessages.map((demo) => (
               <button key={demo.id} className={demoId === demo.id ? 'chip active-chip' : 'chip'} onClick={() => useDemo(demo.id)} title={demo.description}>
@@ -207,7 +207,8 @@ function RiskAreaCard({ title, area }: { title: string; area: CheckResult['payme
 }
 
 function Result({ result, onReset }: { result: CheckResult; onReset: () => void }) {
-  const topReasons = result.detectedTactics.slice(0, 3);
+  const topReasons = [...result.detectedTactics].sort((a, b) => b.weight - a.weight).slice(0, 3);
+  const visibleTactics = result.detectedTactics.filter((x) => x.id !== 'noStrongRule');
   return (
     <section className={`panel result ${result.level}`} aria-live="polite">
       <div className="score">
@@ -220,14 +221,15 @@ function Result({ result, onReset }: { result: CheckResult; onReset: () => void 
         <AlertTriangle aria-hidden="true" />
       </div>
       <div className="grid three">
-        <article><h3>Top 3 reasons</h3><ol className="checklist">{topReasons.map((x) => <li key={x.id}><strong>{x.label}</strong><br /><span>{x.description}</span></li>)}</ol></article>
-        <article><h3>Fake authority type</h3><p>{result.fakeAuthorityType}</p><h3>Cross-border adaptation pattern</h3><p>{result.crossBorderAdaptationPattern}</p></article>
-        <article><h3>False positive warning</h3><p>{result.falsePositiveWarning}</p></article>
+        <article><h3>Top 3 reasons first</h3><ol className="checklist">{topReasons.map((x) => <li key={x.id}><strong>{x.label}</strong><br /><span>{x.description}</span>{x.evidence.length > 0 && <small> Evidence: {x.evidence.join(', ')}</small>}</li>)}</ol></article>
+        <article><h3>Why this was flagged</h3><p>{visibleTactics.length > 0 ? 'The message matched these educational risk indicators:' : 'No strong rule matched; continue normal verification.'}</p><ul className="flag-list">{visibleTactics.map((x) => <li key={x.id}><strong>{x.label}</strong>{x.evidence.length > 0 && <span> — {x.evidence.join(', ')}</span>}</li>)}</ul></article>
+        <article><h3>False-positive warning</h3><p>{result.falsePositiveWarning}</p><h3>Authority/context check</h3><p>{result.fakeAuthorityType}</p></article>
       </div>
+      <div className="grid four"><RiskAreaCard title="Account security risk" area={result.accountSecurityRisk} /><RiskAreaCard title="Credential risk" area={result.credentialRisk} /><RiskAreaCard title="Financial account risk" area={result.financialAccountRisk} /><RiskAreaCard title="Action pressure risk" area={result.actionPressureRisk} /></div>
       <div className="grid three"><RiskAreaCard title="Payment risk" area={result.paymentRisk} /><RiskAreaCard title="Sensitive data risk" area={result.sensitiveDataRisk} /><RiskAreaCard title="Link/domain risk" area={result.linkDomainRisk} /></div>
       <div className="grid two">
-        <article><h3>Safe next steps</h3><ol className="checklist">{result.safeNextSteps.map((x) => <li key={x}>{x}</li>)}</ol><p className="notice">{result.trustedAdultNote}</p></article>
-        <article><h3>Official verification script</h3><blockquote>{result.officialVerificationScript}</blockquote><div className="actions"><button onClick={() => copyText(result.officialVerificationScript)}><Library /> Copy verification script</button><button className="ghost" onClick={onReset}>Analyze another message</button></div><h3>What not to do</h3><ul>{result.whatNotToDo.map((x) => <li key={x}>{x}</li>)}</ul></article>
+        <article><h3>What you should do now</h3><ol className="checklist">{result.safeNextSteps.map((x) => <li key={x}>{x}</li>)}</ol><p className="notice">{result.trustedAdultNote}</p><h3>Cross-border adaptation pattern</h3><p>{result.crossBorderAdaptationPattern}</p></article>
+        <article><h3>What you should not do</h3><ul>{result.whatNotToDo.map((x) => <li key={x}>{x}</li>)}</ul><h3>Copyable verification script</h3><blockquote>{result.officialVerificationScript}</blockquote><div className="actions"><button onClick={() => copyText(result.officialVerificationScript)}><Library /> Copy verification script</button><button className="ghost" onClick={onReset}>Analyze another message</button></div></article>
       </div>
     </section>
   );
@@ -252,7 +254,7 @@ function CaseLibrary() {
       <section className="panel">
         <p className="eyebrow">Case library</p>
         <h1>Study-abroad scam intelligence for safer counseling conversations.</h1>
-        <p className="warning">These cases are educational examples unless marked verified. Do not use them to accuse a specific person.</p>
+        <p className="warning"><strong>Use this library to learn scam patterns, not to identify or accuse individuals.</strong> Cases support counseling and prevention conversations; they are not evidence against a specific person.</p><div className="source-guide"><span><strong>Synthetic:</strong> created for education based on common patterns</span><span><strong>Example:</strong> realistic example, not tied to a specific victim</span><span><strong>Public:</strong> based on a publicly reported pattern</span><span><strong>Verified:</strong> reviewed with reliable evidence or institution confirmation</span></div><p className="notice">How to use cases: compare red flags, rehearse safe responses, then verify through official channels. Do not forward private screenshots or accuse senders based only on similarity.</p>
         <label htmlFor="case-search">Search cases<input id="case-search" value={query} onChange={(e: { target: HTMLInputElement }) => setQuery(e.target.value)} placeholder="Search by scam type, platform, country, target group, or authority" /></label>
         <div className="filters">{option('scamType', 'Scam type', cases.map((x) => x.scamType))}{option('platform', 'Platform', cases.map((x) => x.platform))}{option('sourceType', 'Source label', cases.map((x) => x.sourceType))}{option('tactic', 'Tactic', cases.flatMap((x) => x.psychologicalTactics))}</div>
         <p className="muted">Showing {filtered.length} of {cases.length} cases · sorted by most relevant cases: high confidence first, then scam type.</p>
@@ -272,15 +274,17 @@ function CaseCard({ item }: { item: ScamCase }) {
       <h2>{item.title}</h2>
       <p className="case-summary">{item.shortSummary}</p>
       <div className="tags"><span>{item.scamType}</span><span>{item.platform}</span><span>{item.targetGroup}</span><span>{item.destinationCountryRegion}</span></div>
+      <p className="notice"><strong>Safe response:</strong> {item.safeResponse}</p>
       <blockquote>{item.messageSample}</blockquote>
       <p><strong>Fake authority:</strong> {item.fakeAuthority}</p>
       <p><strong>Route:</strong> {item.originCountryRegion} → {item.destinationCountryRegion}</p>
       <h3>Red flags</h3>
-      <ul>{item.redFlags.map((flag) => <li key={flag}>{flag}</li>)}</ul>
+      <ul className="flag-list red-flags">{item.redFlags.map((flag) => <li key={flag}>{flag}</li>)}</ul>
+      <p><strong>Why this works psychologically:</strong> {item.psychologicalTactics.join(', ')} create pressure, trust, fear, scarcity, or confusion so the student acts before verifying.</p>
       <p><strong>Cross-border adaptation:</strong> {item.crossBorderAdaptation}</p>
-      <p><strong>Safe response:</strong> {item.safeResponse}</p>
-      <h3>Verification steps</h3>
+      <h3>Official verification steps</h3>
       <ol className="checklist">{item.officialVerificationSteps.map((step) => <li key={step}>{step}</li>)}</ol>
+      <p className="muted"><strong>Similar cases:</strong> Search for {item.tags.slice(0, 3).join(', ')} or filter by {item.scamType}.</p>
     </article>
   );
 }
@@ -302,7 +306,7 @@ function ReportPage() {
     } else {
       const existing = JSON.parse(localStorage.getItem('cbssLocalReports') ?? '[]') as AnonymizedReportPayload[];
       localStorage.setItem('cbssLocalReports', JSON.stringify([nextPayload, ...existing].slice(0, 50)));
-      setStatus(`Local demo mode: saved redacted report ${nextPayload.reportId} in this browser only. Configure Firebase for institution pilots.`);
+      setStatus(`Local-only mode: saved redacted report ${nextPayload.reportId} in this browser only. Configure Firebase for institution pilots.`);
     }
   }
   const clearForm = () => { setInput({ ...blankInput, countryRegion: '', destinationCountry: '', context: 'visa', message: '' }); setConsent(false); setStatus(''); setPayload(null); };
@@ -314,7 +318,7 @@ function ReportPage() {
         <h1>Submit an anonymized trend report only after previewing redaction.</h1>
         <div className="steps"><span>1 Paste suspicious message</span><span>2 Review redacted preview</span><span>3 Consent to anonymized report</span><span>4 Save report ID</span></div>
         <div className="warning"><strong>Never submit:</strong><ul>{neverSubmitItems.map((item) => <li key={item}>{item}</li>)}</ul></div>
-        <p className="notice">Local demo mode stores redacted reports in this browser only. Firebase mode submits the anonymized payload to configured Firestore. Neither mode intentionally stores raw suspicious messages by default.</p>
+        <p className="notice">Local-only mode stores redacted reports in this browser only. Firebase mode submits the anonymized payload to configured Firestore. Neither mode intentionally stores raw suspicious messages by default.</p>
         <InputGrid input={input} setInput={setInput} />
         <label htmlFor="report-message">Suspicious message for redaction preview</label>
         <textarea id="report-message" value={input.message} maxLength={5000} onChange={(e: { target: HTMLTextAreaElement }) => setInput({ ...input, message: e.target.value })} />
@@ -370,7 +374,7 @@ function PilotPage() {
       <section className="hero compact"><div><p className="eyebrow">30-day institution pilot</p><h1>Help students verify high-risk messages before money or documents are lost.</h1><p className="lead">Built for high schools, education centers, admissions counselors, scholarship programs, and international student support offices.</p><p className="notice"><strong>Pilot contact:</strong> add your email in README or repository profile before outreach.</p></div><aside className="trust-card"><School /><h2>Professional pilot deliverables</h2><p>Trend dashboard, verified resources, awareness report, and student safety page templates using anonymized data only.</p></aside></section>
       <section className="grid two"><article className="panel"><h2>Who this pilot is for</h2><ul><li>Education centers advising outbound students.</li><li>High school counselors and scholarship advisors.</li><li>Admissions or international student support teams.</li><li>Programs receiving recurring scam questions from families.</li></ul></article><article className="panel"><h2>Problem it solves</h2><p>Institutions see recurring scam questions but often lack a safe way to collect redacted patterns, teach students, and prove which interventions are needed.</p></article></section>
       <section className="panel"><h2>30-day pilot timeline</h2><ol className="timeline"><li><strong>Week 1:</strong> configure official resources and counselor escalation language.</li><li><strong>Week 2:</strong> share student checker and pre-arrival scam guidance.</li><li><strong>Week 3:</strong> review anonymized trends and top fake authorities.</li><li><strong>Week 4:</strong> export awareness report and decide whether to continue.</li></ol></section>
-      <section className="grid two"><article className="panel"><h2>What institutions receive</h2><ul><li>Student checker link and sample classroom/demo messages.</li><li>Case library for awareness training.</li><li>Anonymized dashboard and exportable awareness report.</li><li>Template warning scripts for students, parents, and counselors.</li></ul></article><article className="panel"><h2>Privacy and student safety</h2><p>Scores are indicators, not accusations. Students are encouraged to verify with official channels and trusted adults. Reports are redacted before consented submission.</p></article></section>
+      <section className="grid two"><article className="panel"><h2>What institutions receive</h2><ul><li>Student checker link and sample classroom synthetic sample messages.</li><li>Case library for awareness training.</li><li>Anonymized dashboard and exportable awareness report.</li><li>Template warning scripts for students, parents, and counselors.</li></ul></article><article className="panel"><h2>Privacy and student safety</h2><p>Scores are indicators, not accusations. Students are encouraged to verify with official channels and trusted adults. Reports are redacted before consented submission.</p></article></section>
       <section className="grid two"><article className="panel"><h2>What data is collected</h2><ul><li>Redacted message preview with consent.</li><li>Scam category, platform, country/region, destination, and risk level.</li><li>Optional claimed authority and sender host, not full raw links by default.</li></ul></article><article className="panel"><h2>What data is never collected by default</h2><ul><li>Raw suspicious messages.</li><li>Passport scans, student IDs, bank details, card numbers, credentials, or document images.</li><li>Legal conclusions or law-enforcement case files.</li></ul></article></section>
       <section className="grid two"><article className="panel"><h2>Pricing hypothesis</h2><p>Students use the checker for free. Institutions may pay for dashboards, awareness reports, verified resources, student safety pages, and anonymized scam trend intelligence.</p><p className="notice">School pilot: $500–$2,000/year; institution dashboard: $5,000–$10,000/year if validated. These are hypotheses, not achieved revenue.</p></article><article className="panel"><h2>Pilot readiness checklist</h2><ol className="checklist"><li>Confirm official payment, admissions, visa, housing, and testing links.</li><li>Name a counselor or staff owner for escalations.</li><li>Approve privacy language for redacted reporting.</li><li>Decide what success means after 30 days.</li></ol></article></section>
     </main>
@@ -378,7 +382,7 @@ function PilotPage() {
 }
 
 function Methodology() {
-  return <main className="stack"><section className="panel"><p className="eyebrow">Methodology</p><h1>Transparent rules, not black-box certainty.</h1><p>The analyzer scores risk indicators including urgency, authority impersonation, sensitive-data requests, payment pressure, suspicious domains, unofficial payment channels, vague institutions, guarantees, visa threats, housing scarcity, test score upgrade claims, and cross-border bureaucracy confusion.</p><p className="notice">Scores support safer verification decisions. They do not prove fraud, replace legal advice, or guarantee safety.</p></section><section className="panel"><h2>Why this is different from a generic scam checker</h2><div className="grid three"><article><h3>Study-abroad context</h3><p>Rules are tuned for admissions, visas, scholarships, housing, documents, testing, and agents.</p></article><article><h3>Institution awareness</h3><p>Optional redacted reporting turns individual questions into safer training themes.</p></article><article><h3>Verification scripts</h3><p>Results give copyable language for contacting official channels without accusing anyone.</p></article></div></section><section className="grid two"><article className="panel"><h2>Official resources</h2><div className="resource-list">{officialResources.map((r) => <article key={r.id}><h3>{r.name}</h3><p>{r.country} · {r.institutionType}</p><a href={r.officialWebsite} target="_blank" rel="noreferrer">Official website</a><p>{r.verificationAdvice}</p><small>Reviewed: {r.lastReviewedDate}</small></article>)}</div></article><article className="panel"><h2>Limitations</h2><ul><li>Rule matching can miss new scam language or over-score legitimate deadlines.</li><li>Redaction is best effort and should not receive private documents.</li><li>Institutions must replace template resources before production pilots.</li><li>Firebase rules and authentication require review before real deployment.</li></ul></article></section></main>;
+  return <main className="stack"><section className="panel"><p className="eyebrow">Methodology</p><h1>Transparent rules, not black-box certainty.</h1><p>The analyzer scores risk indicators including urgency, account security threats, identity verification requests, click/action pressure, credential or OTP risk, financial account/card risk, authority impersonation, sensitive-data requests, payment pressure, suspicious domains, unofficial payment channels, vague institutions, guarantees, visa threats, housing scarcity, test score upgrade claims, and cross-border bureaucracy confusion.</p><p className="notice">Scores support safer verification decisions. They do not prove fraud, replace legal advice, or guarantee safety.</p></section><section className="panel"><h2>Why this is different from a generic scam checker</h2><div className="grid three"><article><h3>Study-abroad context</h3><p>Rules are tuned for admissions, visas, scholarships, housing, documents, testing, and agents.</p></article><article><h3>Institution awareness</h3><p>Optional redacted reporting turns individual questions into safer training themes.</p></article><article><h3>Verification scripts</h3><p>Results give copyable language for contacting official channels without accusing anyone.</p></article></div></section><section className="grid two"><article className="panel"><h2>Official resources</h2><div className="resource-list">{officialResources.map((r) => <article key={r.id}><h3>{r.name}</h3><p>{r.country} · {r.institutionType}</p><a href={r.officialWebsite} target="_blank" rel="noreferrer">Official website</a><p>{r.verificationAdvice}</p><small>Reviewed: {r.lastReviewedDate}</small></article>)}</div></article><article className="panel"><h2>Limitations</h2><ul><li>Rule matching can miss new scam language or over-score legitimate deadlines.</li><li>Redaction is best effort and should not receive private documents.</li><li>Institutions must replace template resources before production pilots.</li><li>Firebase rules and authentication require review before real deployment.</li></ul></article></section></main>;
 }
 
 function PrivacyPage() { return <main className="stack"><section className="panel"><p className="eyebrow">Privacy and safety</p><h1>Privacy-first reporting for vulnerable students and families.</h1><div className="grid two"><article><Lock /><h2>Principles</h2><ul><li>Analyze locally by default.</li><li>Never store raw suspicious messages by default.</li><li>Require redaction preview and consent before report submission.</li><li>Use anonymized trend data for institution dashboards.</li></ul></article><article><School /><h2>Student safety</h2><p>Students and minors should not handle threats alone. The product encourages review by trusted adults, counselors, and official institution contacts.</p><p>No public GitHub issue workflow should be used for scam messages or private data.</p></article></div></section></main>; }

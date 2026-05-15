@@ -22,6 +22,44 @@ describe('analyzeMessage', () => {
     expect(result.falsePositiveWarning).toMatch(/legitimate message/i);
   });
 
+  it('flags the exact bank/card phishing sentence as high risk with expected tactics', () => {
+    const message = 'We detected unauthorized login activity on your account. Your card is temporarily locked. Click here immediately to verify your identity.';
+    const result = analyzeMessage({ ...base, context: 'payment', platform: 'SMS', message });
+    const labels = result.detectedTactics.map((x) => x.label);
+    expect(result.score).toBeGreaterThanOrEqual(55);
+    expect(['high', 'critical']).toContain(result.level);
+    expect(labels).toContain('Account security threat');
+    expect(labels).toContain('Identity verification request');
+    expect(labels).toContain('Click/action pressure');
+    expect(labels).toContain('Urgency pressure');
+    expect(labels).toContain('Financial account/card risk');
+    expect(result.safeNextSteps.join(' ')).toMatch(/Do not click/i);
+    expect(result.safeNextSteps.join(' ')).toMatch(/official bank, app/i);
+  });
+
+  it('does not leave account suspension phishing as low risk', () => {
+    const result = analyzeMessage({ ...base, context: 'other', message: 'Your account has been suspended. Verify now to restore access.' });
+    expect(result.level).not.toBe('low');
+    expect(result.score).toBeGreaterThanOrEqual(28);
+  });
+
+  it('flags OTP stealing as high risk', () => {
+    const result = analyzeMessage({ ...base, context: 'other', platform: 'SMS', message: 'Your verification code is required to prevent account closure. Send OTP now.' });
+    expect(result.score).toBeGreaterThanOrEqual(55);
+    expect(['high', 'critical']).toContain(result.level);
+    expect(result.detectedTactics.map((x) => x.label)).toContain('Credential/OTP risk');
+  });
+
+  it('keeps a normal official student portal reminder low risk', () => {
+    const result = analyzeMessage({ ...base, context: 'admission', message: 'Your university orientation schedule is available in the official student portal.' });
+    expect(result.level).toBe('low');
+  });
+
+  it('does not over-score a legitimate scholarship deadline with official website guidance', () => {
+    const result = analyzeMessage({ ...base, context: 'scholarship', message: 'Reminder: the scholarship application deadline is Friday. Log in through the official university website.' });
+    expect(['low', 'medium']).toContain(result.level);
+  });
+
   it('flags scholarship guarantee scams', () => {
     const result = analyzeMessage({ ...base, context: 'scholarship', platform: 'WhatsApp', message: 'Congratulations dear applicant, full scholarship guaranteed. Pay processing fee today by mobile money.' });
     expect(result.detectedTactics.map((x) => x.label)).toContain('Unrealistic guarantee');

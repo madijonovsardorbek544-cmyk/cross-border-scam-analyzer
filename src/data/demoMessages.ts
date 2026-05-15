@@ -9,6 +9,21 @@ export interface DemoMessage {
 
 export const demoMessages: DemoMessage[] = [
   {
+    id: 'bank-card-phishing',
+    label: 'Bank/card phishing',
+    description: 'Synthetic demo: account threat, card lock, click pressure, and identity verification request.',
+    input: {
+      message: 'Synthetic demo sample: We detected unauthorized login activity on your account. Your card is temporarily locked. Click here immediately to verify your identity.',
+      language: 'English',
+      countryRegion: 'Student/family country or region',
+      destinationCountry: 'United States',
+      platform: 'SMS',
+      context: 'payment',
+      claimedAuthority: 'Bank Security Team',
+      senderDomainOrLink: '',
+    },
+  },
+  {
     id: 'scholarship-fee',
     label: 'Scholarship fee scam',
     description: 'Synthetic demo: guaranteed award that asks for a processing fee.',
