@@ -42,6 +42,11 @@ The risk is cross-border and context-specific: students may be far from the dest
 - Institution pilot dashboard with anonymized sample/local reports, trend breakdowns, latest redacted reports, interventions, and downloadable Markdown awareness report.
 - Institution pilot page describing 30-day validation, collected/not-collected data, deliverables, and pricing hypothesis.
 
+
+## Screenshots
+
+Screenshots should be added after the public GitHub Pages site is reviewed on desktop and mobile. Do not add mock screenshots or images that imply fake users, fake partners, or unverified live institution data.
+
 ## Architecture
 
 ```text
