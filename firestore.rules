@@ -2,31 +2,69 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     function signedIn() { return request.auth != null; }
-    function isAdmin() { return signedIn() && request.auth.token.admin == true; }
-
-    match /reports/{reportId} {
-      allow create: if request.resource.data.keys().hasOnly([
-          'redactedMessage', 'language', 'countryRegion', 'platform', 'context',
-          'riskLevel', 'score', 'source', 'createdAt', 'status', 'redactionSummary'
-        ])
+    function isOwner(userId) { return signedIn() && request.auth.uid == userId; }
+    function hasRole(role) { return signedIn() && request.auth.token.role == role; }
+    function isInstitutionMember(institutionId) {
+      return signedIn() && request.auth.token.institutionId == institutionId;
+    }
+    function reportHasOnlyRedactedFields() {
+      return request.resource.data.keys().hasOnly([
+        'reportId', 'createdAt', 'createdAtIso', 'redactedMessage', 'redactionCounts',
+        'highRiskMarkers', 'language', 'countryRegion', 'destinationCountry', 'platform',
+        'context', 'claimedAuthority', 'senderDomainOrLinkHost', 'score', 'level',
+        'scamTypeGuess', 'consentVersion', 'deletionInstructions', 'institutionId'
+      ]);
+    }
+    function reportRejectsRawMessage() {
+      return !request.resource.data.keys().hasAny(['rawMessage', 'message', 'fullMessage', 'unredactedMessage', 'attachments']);
+    }
+    function reportLooksRedacted() {
+      return request.resource.data.reportId is string
         && request.resource.data.redactedMessage is string
         && request.resource.data.redactedMessage.size() <= 5000
-        && request.resource.data.status == 'new';
-      allow read, update, delete: if isAdmin();
+        && request.resource.data.score is int
+        && request.resource.data.score >= 0
+        && request.resource.data.score <= 100
+        && request.resource.data.level in ['low', 'medium', 'high', 'critical'];
     }
 
+    // Reports: anonymous or authenticated users may create redacted reports only.
+    // The public cannot read, update, or delete individual reports from the client.
+    match /reports/{reportId} {
+      allow create: if reportHasOnlyRedactedFields() && reportRejectsRawMessage() && reportLooksRedacted();
+      allow read, update, delete: if false;
+    }
+
+    // Users: each authenticated user can manage only their own profile.
     match /users/{userId} {
-      allow read, create, update, delete: if signedIn() && request.auth.uid == userId;
-      match /localOptInChecks/{checkId} {
-        allow read, create, update, delete: if signedIn() && request.auth.uid == userId;
-      }
+      allow read, delete: if isOwner(userId);
+      allow create, update: if isOwner(userId)
+        && !request.resource.data.keys().hasAny(['rawMessage', 'passportNumber', 'cardNumber']);
     }
 
+    // Institutions: institution members can read their institution record; only admins can write.
+    match /institutions/{institutionId} {
+      allow read: if hasRole('admin') || isInstitutionMember(institutionId);
+      allow create, update, delete: if hasRole('admin');
+    }
+
+    // Institution summaries: aggregated trend intelligence only, scoped to authorized members/admins.
     match /institutionSummaries/{summaryId} {
-      allow read: if isAdmin();
-      allow write: if isAdmin();
+      allow read: if hasRole('admin') || (resource.data.institutionId is string && isInstitutionMember(resource.data.institutionId));
+      allow create, update, delete: if hasRole('admin');
     }
 
+    // Pilot requests: public visitors may request contact, but raw scam messages are rejected.
+    // Admins can read and manage requests.
+    match /pilotRequests/{requestId} {
+      allow create: if !request.resource.data.keys().hasAny(['rawMessage', 'passportNumber', 'cardNumber', 'attachments'])
+        && request.resource.data.keys().hasOnly(['organizationName', 'contactEmail', 'role', 'country', 'notes', 'createdAt'])
+        && request.resource.data.contactEmail is string
+        && request.resource.data.contactEmail.size() <= 320;
+      allow read, update, delete: if hasRole('admin');
+    }
+
+    // Deny by default for every other collection/document.
     match /{document=**} {
       allow read, write: if false;
     }

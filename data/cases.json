@@ -2,171 +2,1066 @@
   {
     "id": "CBSS-001",
     "title": "Guaranteed scholarship processing fee",
+    "shortSummary": "Scholarship fee scam pattern using WhatsApp to pressure international student applicants before official verification.",
     "targetGroup": "International student applicants",
-    "countryRegion": "United States / West Africa",
+    "originCountryRegion": "West Africa",
+    "destinationCountryRegion": "United States",
     "platform": "WhatsApp",
     "language": "English",
     "messageSample": "Congratulations dear applicant. You have been selected for a full scholarship. Pay the $180 processing fee today by mobile money to secure your visa support letter.",
     "scamType": "Scholarship fee scam",
     "fakeAuthority": "Scholarship committee",
-    "psychologicalTactics": ["guaranteed reward", "urgency", "authority impersonation"],
-    "redFlags": ["upfront processing fee", "generic greeting", "payment through mobile money", "visa guarantee"],
-    "crossBorderAdaptation": "Combines scholarship and visa language to exploit unfamiliarity with U.S. admissions timelines.",
-    "safeResponse": "Do not pay. Verify award status through the university scholarship portal or official financial aid office domain.",
+    "psychologicalTactics": [
+      "urgency pressure",
+      "unrealistic guarantee",
+      "payment pressure",
+      "authority impersonation"
+    ],
+    "redFlags": [
+      "generic greeting",
+      "upfront or unexpected fee",
+      "unofficial payment method",
+      "short deadline"
+    ],
+    "crossBorderAdaptation": "Uses real-sounding United States study-abroad terms and distance from official offices to pressure families in West Africa.",
+    "safeResponse": "Do not pay, click, or send documents until the request is verified through official published channels.",
+    "officialVerificationSteps": [
+      "Open the official institution or government website by typing the address yourself.",
+      "Confirm the request in the official portal or with a published phone/email contact.",
+      "Ask a counselor, school official, or trusted adult to review the message before paying or sending documents."
+    ],
     "confidenceLevel": "high",
-    "sourceType": "synthetic"
+    "sourceType": "synthetic",
+    "tags": [
+      "Scholarship fee scam",
+      "WhatsApp",
+      "West Africa",
+      "United States",
+      "urgency pressure",
+      "unrealistic guarantee",
+      "payment pressure"
+    ]
   },
   {
     "id": "CBSS-002",
-    "title": "Fake embassy appointment cancellation threat",
+    "title": "Fake study permit appointment cancellation",
+    "shortSummary": "Visa impersonation pattern using SMS to pressure visa applicants and parents before official verification.",
     "targetGroup": "Visa applicants and parents",
-    "countryRegion": "Canada / South Asia",
+    "originCountryRegion": "South Asia",
+    "destinationCountryRegion": "Canada",
     "platform": "SMS",
     "language": "English",
     "messageSample": "IRCC notice: Your study permit appointment will be cancelled in 2 hours unless you confirm passport details and pay biometrics penalty fee via this link.",
     "scamType": "Visa impersonation",
     "fakeAuthority": "Immigration office",
-    "psychologicalTactics": ["threat", "deadline pressure", "official branding"],
-    "redFlags": ["two-hour deadline", "passport request", "fee via SMS link", "appointment cancellation threat"],
-    "crossBorderAdaptation": "Uses real biometrics terminology to appear credible to first-time study permit applicants.",
-    "safeResponse": "Log into the official immigration account directly and contact the visa application center through official channels.",
+    "psychologicalTactics": [
+      "urgency pressure",
+      "sensitive-data request",
+      "payment pressure",
+      "authority impersonation"
+    ],
+    "redFlags": [
+      "upfront or unexpected fee",
+      "passport, ID, login, or bank request",
+      "short deadline",
+      "unverified link or portal"
+    ],
+    "crossBorderAdaptation": "Uses real-sounding Canada study-abroad terms and distance from official offices to pressure families in South Asia.",
+    "safeResponse": "Do not pay, click, or send documents until the request is verified through official published channels.",
+    "officialVerificationSteps": [
+      "Open the official institution or government website by typing the address yourself.",
+      "Confirm the request in the official portal or with a published phone/email contact.",
+      "Ask a counselor, school official, or trusted adult to review the message before paying or sending documents."
+    ],
     "confidenceLevel": "high",
-    "sourceType": "example"
+    "sourceType": "synthetic",
+    "tags": [
+      "Visa impersonation",
+      "SMS",
+      "South Asia",
+      "Canada",
+      "urgency pressure",
+      "sensitive-data request",
+      "payment pressure"
+    ]
   },
   {
     "id": "CBSS-003",
-    "title": "University admission deposit to personal account",
+    "title": "Admission deposit to personal account",
+    "shortSummary": "Admission deposit scam pattern using email to pressure admitted students before official verification.",
     "targetGroup": "Admitted students",
-    "countryRegion": "United Kingdom / Middle East",
-    "platform": "Email",
+    "originCountryRegion": "Middle East",
+    "destinationCountryRegion": "United Kingdom",
+    "platform": "email",
     "language": "English",
-    "messageSample": "Dear student, your CAS is ready. Transfer £900 to our regional finance officer to release your unconditional admission confirmation.",
-    "scamType": "Admission payment scam",
+    "messageSample": "Dear student, your CAS is ready. Transfer \u00a3900 to our regional finance officer account to release your unconditional admission confirmation.",
+    "scamType": "Admission deposit scam",
     "fakeAuthority": "University finance office",
-    "psychologicalTactics": ["authority impersonation", "fear of losing admission", "process confusion"],
-    "redFlags": ["personal account", "CAS release claim", "non-official payment channel", "generic sender"],
-    "crossBorderAdaptation": "References CAS, a real UK study process, to pressure students before they understand official university payment portals.",
-    "safeResponse": "Pay deposits only through the university portal reached from the official website. Call admissions using the published number.",
+    "psychologicalTactics": [
+      "payment pressure",
+      "authority impersonation"
+    ],
+    "redFlags": [
+      "generic greeting",
+      "personal account"
+    ],
+    "crossBorderAdaptation": "Uses real-sounding United Kingdom study-abroad terms and distance from official offices to pressure families in Middle East.",
+    "safeResponse": "Do not pay, click, or send documents until the request is verified through official published channels.",
+    "officialVerificationSteps": [
+      "Open the official institution or government website by typing the address yourself.",
+      "Confirm the request in the official portal or with a published phone/email contact.",
+      "Ask a counselor, school official, or trusted adult to review the message before paying or sending documents."
+    ],
     "confidenceLevel": "high",
-    "sourceType": "synthetic"
+    "sourceType": "synthetic",
+    "tags": [
+      "Admission deposit scam",
+      "email",
+      "Middle East",
+      "United Kingdom",
+      "payment pressure",
+      "authority impersonation"
+    ]
   },
   {
     "id": "CBSS-004",
-    "title": "Fake housing deposit before arrival",
+    "title": "Pre-arrival housing crypto deposit",
+    "shortSummary": "Housing deposit scam pattern using Instagram to pressure incoming students before official verification.",
     "targetGroup": "Incoming students",
-    "countryRegion": "Australia / Southeast Asia",
+    "originCountryRegion": "Southeast Asia",
+    "destinationCountryRegion": "Australia",
     "platform": "Instagram",
     "language": "English",
-    "messageSample": "Student room near campus available. Many applicants waiting. Send passport photo and 2 weeks deposit by crypto now; inspection after arrival.",
+    "messageSample": "Student room near campus available. Many applicants waiting. Send passport photo and two weeks deposit by USDT now; inspection after arrival.",
     "scamType": "Housing deposit scam",
-    "fakeAuthority": "Landlord / student housing agent",
-    "psychologicalTactics": ["scarcity", "arrival anxiety", "payment pressure"],
-    "redFlags": ["crypto payment", "passport photo request", "no inspection", "scarcity pressure"],
-    "crossBorderAdaptation": "Targets students who cannot inspect housing before crossing borders.",
-    "safeResponse": "Use official university housing resources, request video verification, and avoid irreversible payments to unknown parties.",
-    "confidenceLevel": "medium",
-    "sourceType": "synthetic"
+    "fakeAuthority": "Landlord or student housing agent",
+    "psychologicalTactics": [
+      "sensitive-data request",
+      "payment pressure",
+      "authority impersonation"
+    ],
+    "redFlags": [
+      "upfront or unexpected fee",
+      "unofficial payment method",
+      "passport, ID, login, or bank request"
+    ],
+    "crossBorderAdaptation": "Uses real-sounding Australia study-abroad terms and distance from official offices to pressure families in Southeast Asia.",
+    "safeResponse": "Do not pay, click, or send documents until the request is verified through official published channels.",
+    "officialVerificationSteps": [
+      "Open the official institution or government website by typing the address yourself.",
+      "Confirm the request in the official portal or with a published phone/email contact.",
+      "Ask a counselor, school official, or trusted adult to review the message before paying or sending documents."
+    ],
+    "confidenceLevel": "high",
+    "sourceType": "synthetic",
+    "tags": [
+      "Housing deposit scam",
+      "Instagram",
+      "Southeast Asia",
+      "Australia",
+      "sensitive-data request",
+      "payment pressure",
+      "authority impersonation"
+    ]
   },
   {
     "id": "CBSS-005",
-    "title": "IELTS result upgrade offer",
+    "title": "IELTS band score upgrade offer",
+    "shortSummary": "IELTS/TOEFL/SAT score upgrade pattern using Telegram to pressure test takers before official verification.",
     "targetGroup": "Test takers",
-    "countryRegion": "Global",
+    "originCountryRegion": "Global",
+    "destinationCountryRegion": "United Kingdom",
     "platform": "Telegram",
     "language": "English",
     "messageSample": "Official IELTS insider can upgrade your band score before release. Send candidate number, passport page, and $250 USDT.",
-    "scamType": "Test registration/result scam",
+    "scamType": "IELTS/TOEFL/SAT score upgrade",
     "fakeAuthority": "Testing official",
-    "psychologicalTactics": ["unrealistic reward", "insider claim", "confidentiality"],
-    "redFlags": ["score upgrade", "passport request", "crypto", "unofficial messaging app"],
-    "crossBorderAdaptation": "Exploits language-test pressure in admissions and visa timelines.",
-    "safeResponse": "Report the account to the platform and use only official test-provider portals for scores.",
+    "psychologicalTactics": [
+      "sensitive-data request",
+      "authority impersonation"
+    ],
+    "redFlags": [
+      "unofficial payment method",
+      "passport, ID, login, or bank request"
+    ],
+    "crossBorderAdaptation": "Uses real-sounding United Kingdom study-abroad terms and distance from official offices to pressure families in Global.",
+    "safeResponse": "Do not pay, click, or send documents until the request is verified through official published channels.",
+    "officialVerificationSteps": [
+      "Open the official institution or government website by typing the address yourself.",
+      "Confirm the request in the official portal or with a published phone/email contact.",
+      "Ask a counselor, school official, or trusted adult to review the message before paying or sending documents."
+    ],
     "confidenceLevel": "high",
-    "sourceType": "example"
+    "sourceType": "synthetic",
+    "tags": [
+      "IELTS/TOEFL/SAT score upgrade",
+      "Telegram",
+      "Global",
+      "United Kingdom",
+      "sensitive-data request",
+      "authority impersonation"
+    ]
   },
   {
     "id": "CBSS-006",
-    "title": "Fake SEVIS fee refund link",
-    "targetGroup": "U.S.-bound students",
-    "countryRegion": "United States / Latin America",
-    "platform": "Email",
-    "language": "Spanish",
-    "messageSample": "Aviso SEVIS: usted califica para reembolso. Ingrese datos bancarios y pasaporte en el portal antes de medianoche.",
-    "scamType": "Refund phishing",
-    "fakeAuthority": "Government payment portal",
-    "psychologicalTactics": ["official terminology", "deadline", "refund lure"],
-    "redFlags": ["bank data request", "passport request", "midnight deadline", "unsolicited refund"],
-    "crossBorderAdaptation": "Uses Spanish-language visa terminology for families managing U.S. study costs.",
-    "safeResponse": "Navigate manually to the official government payment site and ask the school international office before entering data.",
-    "confidenceLevel": "medium",
-    "sourceType": "synthetic"
+    "title": "Fake TOEFL registration discount",
+    "shortSummary": "Fake test registration pattern using website to pressure test takers before official verification.",
+    "targetGroup": "Test takers",
+    "originCountryRegion": "Latin America",
+    "destinationCountryRegion": "United States",
+    "platform": "website",
+    "language": "English",
+    "messageSample": "Register TOEFL iBT through our special partner portal today for guaranteed seats. Pay by wire transfer and send passport ID on WhatsApp.",
+    "scamType": "Fake test registration",
+    "fakeAuthority": "Exam center",
+    "psychologicalTactics": [
+      "urgency pressure",
+      "unrealistic guarantee",
+      "sensitive-data request",
+      "payment pressure",
+      "authority impersonation"
+    ],
+    "redFlags": [
+      "unofficial payment method",
+      "passport, ID, login, or bank request",
+      "short deadline",
+      "unverified link or portal"
+    ],
+    "crossBorderAdaptation": "Uses real-sounding United States study-abroad terms and distance from official offices to pressure families in Latin America.",
+    "safeResponse": "Do not pay, click, or send documents until the request is verified through official published channels.",
+    "officialVerificationSteps": [
+      "Open the official institution or government website by typing the address yourself.",
+      "Confirm the request in the official portal or with a published phone/email contact.",
+      "Ask a counselor, school official, or trusted adult to review the message before paying or sending documents."
+    ],
+    "confidenceLevel": "high",
+    "sourceType": "synthetic",
+    "tags": [
+      "Fake test registration",
+      "website",
+      "Latin America",
+      "United States",
+      "urgency pressure",
+      "unrealistic guarantee",
+      "sensitive-data request"
+    ]
   },
   {
     "id": "CBSS-007",
-    "title": "Document legalization courier scam",
-    "targetGroup": "Parents",
-    "countryRegion": "Germany / North Africa",
-    "platform": "Facebook",
-    "language": "French",
-    "messageSample": "Service officiel d'attestation universitaire. Envoyez scans du passeport, diplôme et 120€ par Western Union pour légalisation rapide.",
-    "scamType": "Document service scam",
-    "fakeAuthority": "Document legalization service",
-    "psychologicalTactics": ["bureaucracy confusion", "authority impersonation", "speed promise"],
-    "redFlags": ["Western Union", "passport scan", "official service claim", "fast legalization promise"],
-    "crossBorderAdaptation": "Exploits unfamiliar foreign document legalization steps and parent involvement.",
-    "safeResponse": "Check embassy and university instructions; avoid sending document scans through social media.",
-    "confidenceLevel": "medium",
-    "sourceType": "synthetic"
+    "title": "Document legalization rush fee",
+    "shortSummary": "Fake document legalization pattern using WhatsApp to pressure applicants preparing documents before official verification.",
+    "targetGroup": "Applicants preparing documents",
+    "originCountryRegion": "North Africa",
+    "destinationCountryRegion": "Canada",
+    "platform": "WhatsApp",
+    "language": "English",
+    "messageSample": "Your transcript legalization will expire today. Pay rush attestation fee to our officer and send diploma scan plus birth date.",
+    "scamType": "Fake document legalization",
+    "fakeAuthority": "Legalization ministry clerk",
+    "psychologicalTactics": [
+      "urgency pressure",
+      "sensitive-data request",
+      "payment pressure",
+      "authority impersonation"
+    ],
+    "redFlags": [
+      "upfront or unexpected fee",
+      "passport, ID, login, or bank request",
+      "short deadline"
+    ],
+    "crossBorderAdaptation": "Uses real-sounding Canada study-abroad terms and distance from official offices to pressure families in North Africa.",
+    "safeResponse": "Do not pay, click, or send documents until the request is verified through official published channels.",
+    "officialVerificationSteps": [
+      "Open the official institution or government website by typing the address yourself.",
+      "Confirm the request in the official portal or with a published phone/email contact.",
+      "Ask a counselor, school official, or trusted adult to review the message before paying or sending documents."
+    ],
+    "confidenceLevel": "high",
+    "sourceType": "synthetic",
+    "tags": [
+      "Fake document legalization",
+      "WhatsApp",
+      "North Africa",
+      "Canada",
+      "urgency pressure",
+      "sensitive-data request",
+      "payment pressure"
+    ]
   },
   {
     "id": "CBSS-008",
-    "title": "Fake campus job onboarding check",
-    "targetGroup": "Current international students",
-    "countryRegion": "United States / East Asia",
-    "platform": "Email",
+    "title": "Remote student job check scam",
+    "shortSummary": "Student job scam pattern using email to pressure current students before official verification.",
+    "targetGroup": "Current students",
+    "originCountryRegion": "South Asia",
+    "destinationCountryRegion": "United States",
+    "platform": "email",
     "language": "English",
-    "messageSample": "Remote assistant role approved by international office. Deposit this check, buy gift cards for equipment, keep $300 bonus.",
+    "messageSample": "University career service selected you for remote assistant job. Deposit this check, keep your salary, and wire the rest to the equipment vendor.",
     "scamType": "Student job scam",
-    "fakeAuthority": "International student office",
-    "psychologicalTactics": ["job opportunity", "trusted office impersonation", "overpayment"],
-    "redFlags": ["check deposit", "gift cards", "remote role without interview", "bonus for speed"],
-    "crossBorderAdaptation": "Targets students seeking work authorization-safe campus jobs.",
-    "safeResponse": "Verify jobs through the official career portal and international office before depositing checks or buying items.",
+    "fakeAuthority": "International student career office",
+    "psychologicalTactics": [
+      "unrealistic guarantee",
+      "payment pressure",
+      "authority impersonation"
+    ],
+    "redFlags": [
+      "upfront or unexpected fee",
+      "unofficial payment method"
+    ],
+    "crossBorderAdaptation": "Uses real-sounding United States study-abroad terms and distance from official offices to pressure families in South Asia.",
+    "safeResponse": "Do not pay, click, or send documents until the request is verified through official published channels.",
+    "officialVerificationSteps": [
+      "Open the official institution or government website by typing the address yourself.",
+      "Confirm the request in the official portal or with a published phone/email contact.",
+      "Ask a counselor, school official, or trusted adult to review the message before paying or sending documents."
+    ],
     "confidenceLevel": "high",
-    "sourceType": "example"
+    "sourceType": "synthetic",
+    "tags": [
+      "Student job scam",
+      "email",
+      "South Asia",
+      "United States",
+      "unrealistic guarantee",
+      "payment pressure",
+      "authority impersonation"
+    ]
   },
   {
     "id": "CBSS-009",
-    "title": "Admissions portal password reset phishing",
-    "targetGroup": "Applicants",
-    "countryRegion": "Global",
-    "platform": "Website",
+    "title": "Fake tuition refund phishing",
+    "shortSummary": "Fake refund phishing pattern using email to pressure students and parents before official verification.",
+    "targetGroup": "Students and parents",
+    "originCountryRegion": "East Asia",
+    "destinationCountryRegion": "Australia",
+    "platform": "email",
     "language": "English",
-    "messageSample": "Your application portal access expires today. Confirm email password and date of birth at university-admissions-secure.com.",
-    "scamType": "Credential phishing",
-    "fakeAuthority": "University admissions portal",
-    "psychologicalTactics": ["account loss threat", "lookalike domain", "urgency"],
-    "redFlags": ["password request", "lookalike domain", "expiration threat", "date of birth request"],
-    "crossBorderAdaptation": "Exploits multiple application portals and confusion about official domains.",
-    "safeResponse": "Open the admissions portal from the university website and reset passwords only through official pages.",
+    "messageSample": "Your tuition refund is pending. Log in through secure-refund-student.xyz and confirm bank account, password, and student ID within 12 hours.",
+    "scamType": "Fake refund phishing",
+    "fakeAuthority": "University refund office",
+    "psychologicalTactics": [
+      "urgency pressure",
+      "sensitive-data request",
+      "authority impersonation"
+    ],
+    "redFlags": [
+      "passport, ID, login, or bank request",
+      "short deadline",
+      "unverified link or portal"
+    ],
+    "crossBorderAdaptation": "Uses real-sounding Australia study-abroad terms and distance from official offices to pressure families in East Asia.",
+    "safeResponse": "Do not pay, click, or send documents until the request is verified through official published channels.",
+    "officialVerificationSteps": [
+      "Open the official institution or government website by typing the address yourself.",
+      "Confirm the request in the official portal or with a published phone/email contact.",
+      "Ask a counselor, school official, or trusted adult to review the message before paying or sending documents."
+    ],
     "confidenceLevel": "high",
-    "sourceType": "synthetic"
+    "sourceType": "synthetic",
+    "tags": [
+      "Fake refund phishing",
+      "email",
+      "East Asia",
+      "Australia",
+      "urgency pressure",
+      "sensitive-data request",
+      "authority impersonation"
+    ]
   },
   {
     "id": "CBSS-010",
-    "title": "Agent guarantees admission and visa",
-    "targetGroup": "Families",
-    "countryRegion": "United Kingdom / South Asia",
+    "title": "Fake education agent guarantee",
+    "shortSummary": "Fake education agent pattern using WhatsApp to pressure families and parents before official verification.",
+    "targetGroup": "Families and parents",
+    "originCountryRegion": "South Asia",
+    "destinationCountryRegion": "Canada",
     "platform": "WhatsApp",
     "language": "English",
-    "messageSample": "British university direct agent. 100% admission and visa approval. Send transcripts, passport, and first-year tuition to reserve seat.",
-    "scamType": "Education agent fraud",
-    "fakeAuthority": "Admissions agent",
-    "psychologicalTactics": ["guarantee", "authority borrowing", "seat scarcity"],
-    "redFlags": ["100% guarantee", "tuition to agent", "passport request", "unverified agent status"],
-    "crossBorderAdaptation": "Leverages dependence on local agents for foreign admissions and visa steps.",
-    "safeResponse": "Confirm agent authorization with the university and pay tuition only to official university accounts.",
+    "messageSample": "Approved Canada education agent guarantees admission and visa without interview. Pay first service installment to personal account today.",
+    "scamType": "Fake education agent",
+    "fakeAuthority": "Approved admissions agent",
+    "psychologicalTactics": [
+      "urgency pressure",
+      "unrealistic guarantee",
+      "payment pressure",
+      "authority impersonation"
+    ],
+    "redFlags": [
+      "personal account",
+      "short deadline"
+    ],
+    "crossBorderAdaptation": "Uses real-sounding Canada study-abroad terms and distance from official offices to pressure families in South Asia.",
+    "safeResponse": "Do not pay, click, or send documents until the request is verified through official published channels.",
+    "officialVerificationSteps": [
+      "Open the official institution or government website by typing the address yourself.",
+      "Confirm the request in the official portal or with a published phone/email contact.",
+      "Ask a counselor, school official, or trusted adult to review the message before paying or sending documents."
+    ],
     "confidenceLevel": "high",
-    "sourceType": "synthetic"
+    "sourceType": "synthetic",
+    "tags": [
+      "Fake education agent",
+      "WhatsApp",
+      "South Asia",
+      "Canada",
+      "urgency pressure",
+      "unrealistic guarantee",
+      "payment pressure"
+    ]
+  },
+  {
+    "id": "CBSS-011",
+    "title": "Fake admissions portal",
+    "shortSummary": "Fake university/admissions portal pattern using website to pressure applicants before official verification.",
+    "targetGroup": "Applicants",
+    "originCountryRegion": "West Africa",
+    "destinationCountryRegion": "United States",
+    "platform": "website",
+    "language": "English",
+    "messageSample": "Your admission is approved. Upload passport and pay enrollment fee at admissions-secure-university.info before midnight to keep your seat.",
+    "scamType": "Fake university/admissions portal",
+    "fakeAuthority": "University admissions portal",
+    "psychologicalTactics": [
+      "urgency pressure",
+      "unrealistic guarantee",
+      "sensitive-data request",
+      "payment pressure",
+      "authority impersonation"
+    ],
+    "redFlags": [
+      "upfront or unexpected fee",
+      "passport, ID, login, or bank request",
+      "short deadline",
+      "unverified link or portal"
+    ],
+    "crossBorderAdaptation": "Uses real-sounding United States study-abroad terms and distance from official offices to pressure families in West Africa.",
+    "safeResponse": "Do not pay, click, or send documents until the request is verified through official published channels.",
+    "officialVerificationSteps": [
+      "Open the official institution or government website by typing the address yourself.",
+      "Confirm the request in the official portal or with a published phone/email contact.",
+      "Ask a counselor, school official, or trusted adult to review the message before paying or sending documents."
+    ],
+    "confidenceLevel": "high",
+    "sourceType": "synthetic",
+    "tags": [
+      "Fake university/admissions portal",
+      "website",
+      "West Africa",
+      "United States",
+      "urgency pressure",
+      "unrealistic guarantee",
+      "sensitive-data request"
+    ]
+  },
+  {
+    "id": "CBSS-012",
+    "title": "Embassy appointment reseller",
+    "shortSummary": "Fake embassy appointment pattern using Telegram to pressure visa applicants before official verification.",
+    "targetGroup": "Visa applicants",
+    "originCountryRegion": "Middle East",
+    "destinationCountryRegion": "United States",
+    "platform": "Telegram",
+    "language": "English",
+    "messageSample": "We are embassy appointment staff. We can move your visa interview to tomorrow for a cash transfer. Send DS confirmation and passport number.",
+    "scamType": "Fake embassy appointment",
+    "fakeAuthority": "Embassy appointment office",
+    "psychologicalTactics": [
+      "urgency pressure",
+      "sensitive-data request",
+      "payment pressure",
+      "authority impersonation"
+    ],
+    "redFlags": [
+      "passport, ID, login, or bank request"
+    ],
+    "crossBorderAdaptation": "Uses real-sounding United States study-abroad terms and distance from official offices to pressure families in Middle East.",
+    "safeResponse": "Do not pay, click, or send documents until the request is verified through official published channels.",
+    "officialVerificationSteps": [
+      "Open the official institution or government website by typing the address yourself.",
+      "Confirm the request in the official portal or with a published phone/email contact.",
+      "Ask a counselor, school official, or trusted adult to review the message before paying or sending documents."
+    ],
+    "confidenceLevel": "high",
+    "sourceType": "synthetic",
+    "tags": [
+      "Fake embassy appointment",
+      "Telegram",
+      "Middle East",
+      "United States",
+      "urgency pressure",
+      "sensitive-data request",
+      "payment pressure"
+    ]
+  },
+  {
+    "id": "CBSS-013",
+    "title": "Tuition bank account change",
+    "shortSummary": "Fake tuition payment account pattern using email to pressure parents paying tuition before official verification.",
+    "targetGroup": "Parents paying tuition",
+    "originCountryRegion": "East Asia",
+    "destinationCountryRegion": "United Kingdom",
+    "platform": "email",
+    "language": "English",
+    "messageSample": "Due to audit, tuition bank details changed. Send payment to the attached beneficiary account and email receipt to finance officer.",
+    "scamType": "Fake tuition payment account",
+    "fakeAuthority": "University finance office",
+    "psychologicalTactics": [
+      "sensitive-data request",
+      "payment pressure",
+      "authority impersonation"
+    ],
+    "redFlags": [
+      "upfront or unexpected fee",
+      "passport, ID, login, or bank request"
+    ],
+    "crossBorderAdaptation": "Uses real-sounding United Kingdom study-abroad terms and distance from official offices to pressure families in East Asia.",
+    "safeResponse": "Do not pay, click, or send documents until the request is verified through official published channels.",
+    "officialVerificationSteps": [
+      "Open the official institution or government website by typing the address yourself.",
+      "Confirm the request in the official portal or with a published phone/email contact.",
+      "Ask a counselor, school official, or trusted adult to review the message before paying or sending documents."
+    ],
+    "confidenceLevel": "high",
+    "sourceType": "synthetic",
+    "tags": [
+      "Fake tuition payment account",
+      "email",
+      "East Asia",
+      "United Kingdom",
+      "sensitive-data request",
+      "payment pressure",
+      "authority impersonation"
+    ]
+  },
+  {
+    "id": "CBSS-014",
+    "title": "Courier clearance for documents",
+    "shortSummary": "Fake courier/document delivery pattern using SMS to pressure applicants waiting for documents before official verification.",
+    "targetGroup": "Applicants waiting for documents",
+    "originCountryRegion": "Latin America",
+    "destinationCountryRegion": "Canada",
+    "platform": "SMS",
+    "language": "English",
+    "messageSample": "Your admission documents are held by courier customs. Pay clearance fee by gift card and confirm address/date of birth.",
+    "scamType": "Fake courier/document delivery",
+    "fakeAuthority": "Courier customs team",
+    "psychologicalTactics": [
+      "sensitive-data request",
+      "payment pressure",
+      "authority impersonation"
+    ],
+    "redFlags": [
+      "upfront or unexpected fee",
+      "unofficial payment method",
+      "passport, ID, login, or bank request"
+    ],
+    "crossBorderAdaptation": "Uses real-sounding Canada study-abroad terms and distance from official offices to pressure families in Latin America.",
+    "safeResponse": "Do not pay, click, or send documents until the request is verified through official published channels.",
+    "officialVerificationSteps": [
+      "Open the official institution or government website by typing the address yourself.",
+      "Confirm the request in the official portal or with a published phone/email contact.",
+      "Ask a counselor, school official, or trusted adult to review the message before paying or sending documents."
+    ],
+    "confidenceLevel": "high",
+    "sourceType": "synthetic",
+    "tags": [
+      "Fake courier/document delivery",
+      "SMS",
+      "Latin America",
+      "Canada",
+      "sensitive-data request",
+      "payment pressure",
+      "authority impersonation"
+    ]
+  },
+  {
+    "id": "CBSS-015",
+    "title": "Parent-targeted scholarship release",
+    "shortSummary": "Parent-targeted scholarship fraud pattern using phone call to pressure parents and families before official verification.",
+    "targetGroup": "Parents and families",
+    "originCountryRegion": "West Africa",
+    "destinationCountryRegion": "United States",
+    "platform": "phone call",
+    "language": "English",
+    "messageSample": "Your child won a government scholarship but the family must pay a release tax immediately by mobile money to avoid losing the award.",
+    "scamType": "Parent-targeted scholarship fraud",
+    "fakeAuthority": "Scholarship foundation",
+    "psychologicalTactics": [
+      "urgency pressure",
+      "unrealistic guarantee",
+      "payment pressure",
+      "authority impersonation"
+    ],
+    "redFlags": [
+      "upfront or unexpected fee",
+      "unofficial payment method"
+    ],
+    "crossBorderAdaptation": "Uses real-sounding United States study-abroad terms and distance from official offices to pressure families in West Africa.",
+    "safeResponse": "Do not pay, click, or send documents until the request is verified through official published channels.",
+    "officialVerificationSteps": [
+      "Open the official institution or government website by typing the address yourself.",
+      "Confirm the request in the official portal or with a published phone/email contact.",
+      "Ask a counselor, school official, or trusted adult to review the message before paying or sending documents."
+    ],
+    "confidenceLevel": "high",
+    "sourceType": "synthetic",
+    "tags": [
+      "Parent-targeted scholarship fraud",
+      "phone call",
+      "West Africa",
+      "United States",
+      "urgency pressure",
+      "unrealistic guarantee",
+      "payment pressure"
+    ]
+  },
+  {
+    "id": "CBSS-016",
+    "title": "SEVIS fee duplicate payment",
+    "shortSummary": "Visa impersonation pattern using email to pressure f-1 visa applicants before official verification.",
+    "targetGroup": "F-1 visa applicants",
+    "originCountryRegion": "South Asia",
+    "destinationCountryRegion": "United States",
+    "platform": "email",
+    "language": "English",
+    "messageSample": "SEVIS payment failed. Pay again through our support link and send I-20, passport number, and card details for manual confirmation.",
+    "scamType": "Visa impersonation",
+    "fakeAuthority": "SEVIS support desk",
+    "psychologicalTactics": [
+      "sensitive-data request",
+      "payment pressure",
+      "authority impersonation"
+    ],
+    "redFlags": [
+      "upfront or unexpected fee",
+      "passport, ID, login, or bank request",
+      "unverified link or portal"
+    ],
+    "crossBorderAdaptation": "Uses real-sounding United States study-abroad terms and distance from official offices to pressure families in South Asia.",
+    "safeResponse": "Do not pay, click, or send documents until the request is verified through official published channels.",
+    "officialVerificationSteps": [
+      "Open the official institution or government website by typing the address yourself.",
+      "Confirm the request in the official portal or with a published phone/email contact.",
+      "Ask a counselor, school official, or trusted adult to review the message before paying or sending documents."
+    ],
+    "confidenceLevel": "high",
+    "sourceType": "synthetic",
+    "tags": [
+      "Visa impersonation",
+      "email",
+      "South Asia",
+      "United States",
+      "sensitive-data request",
+      "payment pressure",
+      "authority impersonation"
+    ]
+  },
+  {
+    "id": "CBSS-017",
+    "title": "Fake UK CAS priority release",
+    "shortSummary": "Admission deposit scam pattern using WhatsApp to pressure admitted students before official verification.",
+    "targetGroup": "Admitted students",
+    "originCountryRegion": "Nigeria",
+    "destinationCountryRegion": "United Kingdom",
+    "platform": "WhatsApp",
+    "language": "English",
+    "messageSample": "CAS priority release available today only. Send \u00a3450 to regional officer account and your CAS will be issued in one hour.",
+    "scamType": "Admission deposit scam",
+    "fakeAuthority": "UK university CAS office",
+    "psychologicalTactics": [
+      "urgency pressure",
+      "authority impersonation"
+    ],
+    "redFlags": [
+      "personal account",
+      "short deadline"
+    ],
+    "crossBorderAdaptation": "Uses real-sounding United Kingdom study-abroad terms and distance from official offices to pressure families in Nigeria.",
+    "safeResponse": "Do not pay, click, or send documents until the request is verified through official published channels.",
+    "officialVerificationSteps": [
+      "Open the official institution or government website by typing the address yourself.",
+      "Confirm the request in the official portal or with a published phone/email contact.",
+      "Ask a counselor, school official, or trusted adult to review the message before paying or sending documents."
+    ],
+    "confidenceLevel": "high",
+    "sourceType": "synthetic",
+    "tags": [
+      "Admission deposit scam",
+      "WhatsApp",
+      "Nigeria",
+      "United Kingdom",
+      "urgency pressure",
+      "authority impersonation"
+    ]
+  },
+  {
+    "id": "CBSS-018",
+    "title": "Rental lease without viewing",
+    "shortSummary": "Housing deposit scam pattern using Facebook Marketplace to pressure incoming students before official verification.",
+    "targetGroup": "Incoming students",
+    "originCountryRegion": "India",
+    "destinationCountryRegion": "Canada",
+    "platform": "Facebook Marketplace",
+    "language": "English",
+    "messageSample": "Room close to campus. No video call because landlord is traveling. Many students want it; pay deposit by wire to reserve now.",
+    "scamType": "Housing deposit scam",
+    "fakeAuthority": "Private landlord",
+    "psychologicalTactics": [
+      "payment pressure",
+      "authority impersonation"
+    ],
+    "redFlags": [
+      "upfront or unexpected fee",
+      "unofficial payment method"
+    ],
+    "crossBorderAdaptation": "Uses real-sounding Canada study-abroad terms and distance from official offices to pressure families in India.",
+    "safeResponse": "Do not pay, click, or send documents until the request is verified through official published channels.",
+    "officialVerificationSteps": [
+      "Open the official institution or government website by typing the address yourself.",
+      "Confirm the request in the official portal or with a published phone/email contact.",
+      "Ask a counselor, school official, or trusted adult to review the message before paying or sending documents."
+    ],
+    "confidenceLevel": "high",
+    "sourceType": "synthetic",
+    "tags": [
+      "Housing deposit scam",
+      "Facebook Marketplace",
+      "India",
+      "Canada",
+      "payment pressure",
+      "authority impersonation"
+    ]
+  },
+  {
+    "id": "CBSS-019",
+    "title": "SAT score correction service",
+    "shortSummary": "IELTS/TOEFL/SAT score upgrade pattern using Instagram to pressure high school applicants before official verification.",
+    "targetGroup": "High school applicants",
+    "originCountryRegion": "Global",
+    "destinationCountryRegion": "United States",
+    "platform": "Instagram",
+    "language": "English",
+    "messageSample": "SAT score correction available before universities see it. Send College Board login and crypto payment for guaranteed 1500+.",
+    "scamType": "IELTS/TOEFL/SAT score upgrade",
+    "fakeAuthority": "College Board insider",
+    "psychologicalTactics": [
+      "unrealistic guarantee",
+      "sensitive-data request",
+      "payment pressure",
+      "authority impersonation"
+    ],
+    "redFlags": [
+      "upfront or unexpected fee",
+      "unofficial payment method",
+      "passport, ID, login, or bank request"
+    ],
+    "crossBorderAdaptation": "Uses real-sounding United States study-abroad terms and distance from official offices to pressure families in Global.",
+    "safeResponse": "Do not pay, click, or send documents until the request is verified through official published channels.",
+    "officialVerificationSteps": [
+      "Open the official institution or government website by typing the address yourself.",
+      "Confirm the request in the official portal or with a published phone/email contact.",
+      "Ask a counselor, school official, or trusted adult to review the message before paying or sending documents."
+    ],
+    "confidenceLevel": "high",
+    "sourceType": "synthetic",
+    "tags": [
+      "IELTS/TOEFL/SAT score upgrade",
+      "Instagram",
+      "Global",
+      "United States",
+      "unrealistic guarantee",
+      "sensitive-data request",
+      "payment pressure"
+    ]
+  },
+  {
+    "id": "CBSS-020",
+    "title": "Fake apostille appointment",
+    "shortSummary": "Fake document legalization pattern using website to pressure applicants legalizing records before official verification.",
+    "targetGroup": "Applicants legalizing records",
+    "originCountryRegion": "Latin America",
+    "destinationCountryRegion": "Spain",
+    "platform": "website",
+    "language": "English",
+    "messageSample": "Official apostille slot reserved. Upload birth certificate scan and pay personal assistant fee through wire transfer to confirm.",
+    "scamType": "Fake document legalization",
+    "fakeAuthority": "Apostille office",
+    "psychologicalTactics": [
+      "sensitive-data request",
+      "payment pressure",
+      "authority impersonation"
+    ],
+    "redFlags": [
+      "upfront or unexpected fee",
+      "unofficial payment method",
+      "passport, ID, login, or bank request"
+    ],
+    "crossBorderAdaptation": "Uses real-sounding Spain study-abroad terms and distance from official offices to pressure families in Latin America.",
+    "safeResponse": "Do not pay, click, or send documents until the request is verified through official published channels.",
+    "officialVerificationSteps": [
+      "Open the official institution or government website by typing the address yourself.",
+      "Confirm the request in the official portal or with a published phone/email contact.",
+      "Ask a counselor, school official, or trusted adult to review the message before paying or sending documents."
+    ],
+    "confidenceLevel": "medium",
+    "sourceType": "synthetic",
+    "tags": [
+      "Fake document legalization",
+      "website",
+      "Latin America",
+      "Spain",
+      "sensitive-data request",
+      "payment pressure",
+      "authority impersonation"
+    ]
+  },
+  {
+    "id": "CBSS-021",
+    "title": "University WhatsApp admissions officer",
+    "shortSummary": "Fake education agent pattern using WhatsApp to pressure applicants before official verification.",
+    "targetGroup": "Applicants",
+    "originCountryRegion": "Vietnam",
+    "destinationCountryRegion": "Australia",
+    "platform": "WhatsApp",
+    "language": "English",
+    "messageSample": "I am official admissions counselor for many Australian universities. Full offer guaranteed if you send transcripts and agent deposit today.",
+    "scamType": "Fake education agent",
+    "fakeAuthority": "Admissions counselor",
+    "psychologicalTactics": [
+      "urgency pressure",
+      "unrealistic guarantee",
+      "sensitive-data request",
+      "payment pressure",
+      "authority impersonation"
+    ],
+    "redFlags": [
+      "upfront or unexpected fee",
+      "short deadline"
+    ],
+    "crossBorderAdaptation": "Uses real-sounding Australia study-abroad terms and distance from official offices to pressure families in Vietnam.",
+    "safeResponse": "Do not pay, click, or send documents until the request is verified through official published channels.",
+    "officialVerificationSteps": [
+      "Open the official institution or government website by typing the address yourself.",
+      "Confirm the request in the official portal or with a published phone/email contact.",
+      "Ask a counselor, school official, or trusted adult to review the message before paying or sending documents."
+    ],
+    "confidenceLevel": "medium",
+    "sourceType": "synthetic",
+    "tags": [
+      "Fake education agent",
+      "WhatsApp",
+      "Vietnam",
+      "Australia",
+      "urgency pressure",
+      "unrealistic guarantee",
+      "sensitive-data request"
+    ]
+  },
+  {
+    "id": "CBSS-022",
+    "title": "Fake graduate assistantship fee",
+    "shortSummary": "Scholarship fee scam pattern using email to pressure graduate applicants before official verification.",
+    "targetGroup": "Graduate applicants",
+    "originCountryRegion": "East Africa",
+    "destinationCountryRegion": "United States",
+    "platform": "email",
+    "language": "English",
+    "messageSample": "You have been selected for assistantship funding. Pay documentation fee and send bank statement to activate your scholarship package.",
+    "scamType": "Scholarship fee scam",
+    "fakeAuthority": "Graduate school funding office",
+    "psychologicalTactics": [
+      "unrealistic guarantee",
+      "sensitive-data request",
+      "payment pressure",
+      "authority impersonation"
+    ],
+    "redFlags": [
+      "upfront or unexpected fee",
+      "passport, ID, login, or bank request"
+    ],
+    "crossBorderAdaptation": "Uses real-sounding United States study-abroad terms and distance from official offices to pressure families in East Africa.",
+    "safeResponse": "Do not pay, click, or send documents until the request is verified through official published channels.",
+    "officialVerificationSteps": [
+      "Open the official institution or government website by typing the address yourself.",
+      "Confirm the request in the official portal or with a published phone/email contact.",
+      "Ask a counselor, school official, or trusted adult to review the message before paying or sending documents."
+    ],
+    "confidenceLevel": "medium",
+    "sourceType": "synthetic",
+    "tags": [
+      "Scholarship fee scam",
+      "email",
+      "East Africa",
+      "United States",
+      "unrealistic guarantee",
+      "sensitive-data request",
+      "payment pressure"
+    ]
+  },
+  {
+    "id": "CBSS-023",
+    "title": "Biometrics penalty threat",
+    "shortSummary": "Visa impersonation pattern using SMS to pressure study permit applicants before official verification.",
+    "targetGroup": "Study permit applicants",
+    "originCountryRegion": "Philippines",
+    "destinationCountryRegion": "Canada",
+    "platform": "SMS",
+    "language": "English",
+    "messageSample": "Final notice: biometrics penalty overdue. Your study permit will be blacklisted unless you pay via link and confirm passport.",
+    "scamType": "Visa impersonation",
+    "fakeAuthority": "Visa application center",
+    "psychologicalTactics": [
+      "urgency pressure",
+      "sensitive-data request",
+      "payment pressure",
+      "authority impersonation"
+    ],
+    "redFlags": [
+      "passport, ID, login, or bank request",
+      "short deadline",
+      "unverified link or portal"
+    ],
+    "crossBorderAdaptation": "Uses real-sounding Canada study-abroad terms and distance from official offices to pressure families in Philippines.",
+    "safeResponse": "Do not pay, click, or send documents until the request is verified through official published channels.",
+    "officialVerificationSteps": [
+      "Open the official institution or government website by typing the address yourself.",
+      "Confirm the request in the official portal or with a published phone/email contact.",
+      "Ask a counselor, school official, or trusted adult to review the message before paying or sending documents."
+    ],
+    "confidenceLevel": "medium",
+    "sourceType": "synthetic",
+    "tags": [
+      "Visa impersonation",
+      "SMS",
+      "Philippines",
+      "Canada",
+      "urgency pressure",
+      "sensitive-data request",
+      "payment pressure"
+    ]
+  },
+  {
+    "id": "CBSS-024",
+    "title": "Arrival pickup payment scam",
+    "shortSummary": "Fake courier/document delivery pattern using WeChat to pressure new arrivals before official verification.",
+    "targetGroup": "New arrivals",
+    "originCountryRegion": "China",
+    "destinationCountryRegion": "United Kingdom",
+    "platform": "WeChat",
+    "language": "English",
+    "messageSample": "University pickup team requires arrival processing payment. Send passport photo and pay driver deposit before your flight.",
+    "scamType": "Fake courier/document delivery",
+    "fakeAuthority": "University welcome team",
+    "psychologicalTactics": [
+      "sensitive-data request",
+      "payment pressure",
+      "authority impersonation"
+    ],
+    "redFlags": [
+      "upfront or unexpected fee",
+      "passport, ID, login, or bank request"
+    ],
+    "crossBorderAdaptation": "Uses real-sounding United Kingdom study-abroad terms and distance from official offices to pressure families in China.",
+    "safeResponse": "Do not pay, click, or send documents until the request is verified through official published channels.",
+    "officialVerificationSteps": [
+      "Open the official institution or government website by typing the address yourself.",
+      "Confirm the request in the official portal or with a published phone/email contact.",
+      "Ask a counselor, school official, or trusted adult to review the message before paying or sending documents."
+    ],
+    "confidenceLevel": "medium",
+    "sourceType": "synthetic",
+    "tags": [
+      "Fake courier/document delivery",
+      "WeChat",
+      "China",
+      "United Kingdom",
+      "sensitive-data request",
+      "payment pressure",
+      "authority impersonation"
+    ]
+  },
+  {
+    "id": "CBSS-025",
+    "title": "Fake hostel operated by university",
+    "shortSummary": "Housing deposit scam pattern using Instagram to pressure exchange students before official verification.",
+    "targetGroup": "Exchange students",
+    "originCountryRegion": "Brazil",
+    "destinationCountryRegion": "Portugal",
+    "platform": "Instagram",
+    "language": "English",
+    "messageSample": "Official university hostel has last beds. Pay crypto deposit and send ID photo now; lease contract after arrival.",
+    "scamType": "Housing deposit scam",
+    "fakeAuthority": "Residence office",
+    "psychologicalTactics": [
+      "sensitive-data request",
+      "payment pressure",
+      "authority impersonation"
+    ],
+    "redFlags": [
+      "upfront or unexpected fee",
+      "unofficial payment method",
+      "passport, ID, login, or bank request"
+    ],
+    "crossBorderAdaptation": "Uses real-sounding Portugal study-abroad terms and distance from official offices to pressure families in Brazil.",
+    "safeResponse": "Do not pay, click, or send documents until the request is verified through official published channels.",
+    "officialVerificationSteps": [
+      "Open the official institution or government website by typing the address yourself.",
+      "Confirm the request in the official portal or with a published phone/email contact.",
+      "Ask a counselor, school official, or trusted adult to review the message before paying or sending documents."
+    ],
+    "confidenceLevel": "medium",
+    "sourceType": "synthetic",
+    "tags": [
+      "Housing deposit scam",
+      "Instagram",
+      "Brazil",
+      "Portugal",
+      "sensitive-data request",
+      "payment pressure",
+      "authority impersonation"
+    ]
+  },
+  {
+    "id": "CBSS-026",
+    "title": "Visa document translation agent",
+    "shortSummary": "Fake document legalization pattern using Telegram to pressure applicants before official verification.",
+    "targetGroup": "Applicants",
+    "originCountryRegion": "Turkey",
+    "destinationCountryRegion": "Germany",
+    "platform": "Telegram",
+    "language": "English",
+    "messageSample": "Embassy-certified translator can legalize all visa documents without appointment. Send scans, birth date, and urgent fee today.",
+    "scamType": "Fake document legalization",
+    "fakeAuthority": "Certified translator agent",
+    "psychologicalTactics": [
+      "urgency pressure",
+      "sensitive-data request",
+      "payment pressure",
+      "authority impersonation"
+    ],
+    "redFlags": [
+      "upfront or unexpected fee",
+      "passport, ID, login, or bank request",
+      "short deadline"
+    ],
+    "crossBorderAdaptation": "Uses real-sounding Germany study-abroad terms and distance from official offices to pressure families in Turkey.",
+    "safeResponse": "Do not pay, click, or send documents until the request is verified through official published channels.",
+    "officialVerificationSteps": [
+      "Open the official institution or government website by typing the address yourself.",
+      "Confirm the request in the official portal or with a published phone/email contact.",
+      "Ask a counselor, school official, or trusted adult to review the message before paying or sending documents."
+    ],
+    "confidenceLevel": "medium",
+    "sourceType": "synthetic",
+    "tags": [
+      "Fake document legalization",
+      "Telegram",
+      "Turkey",
+      "Germany",
+      "urgency pressure",
+      "sensitive-data request",
+      "payment pressure"
+    ]
   }
 ]
