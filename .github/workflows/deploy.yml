@@ -43,6 +43,9 @@ jobs:
             echo "No test files found; skipping tests."
           fi
 
+      - name: Run E2E-style flow tests
+        run: npm run test:e2e
+
       - name: Build
         run: npm run build
 

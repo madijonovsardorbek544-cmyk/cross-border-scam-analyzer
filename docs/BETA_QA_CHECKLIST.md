@@ -1,28 +1,37 @@
-# Controlled Beta Manual QA Checklist
+# Beta QA Checklist
 
-Use this checklist before sharing a beta link with students, friends, or counselors. Record browser, device, date, build/commit, and whether Firebase environment variables were configured.
+Run this before sharing any controlled-beta link. Expected result should be recorded as pass/fail with notes. Do not use raw private messages during QA.
 
-| Area | Manual step | Expected result |
+| Area | Manual QA step | Expected result |
 | --- | --- | --- |
-| Live site | Open the live site URL. | Homepage loads without console-breaking errors and clearly says this is an educational MVP that detects risk indicators, not certainty. |
-| Homepage CTAs | Click “Check a suspicious message,” “View case library,” and “Explore institution pilot.” | Each CTA updates the hash route and shows the expected page without a full app failure. |
-| Bank/card phishing demo | Open `#checker`, select “Bank/card phishing,” and run analysis. | Result is high or critical; account/card/identity/click indicators appear in top reasons or analyst view. |
-| Scholarship scam demo | Select “Scholarship fee scam” and run analysis. | Result shows scholarship/payment/sensitive-data risk indicators and safe verification steps. |
-| Legitimate university reminder | Paste a normal university reminder that points to the official portal and does not request unusual payment or secrets. | Result remains low or medium and copy warns that legitimate messages can still be verified. |
-| Custom suspicious message | Paste a short custom suspicious message, then enter a real country/region and destination country. | Analysis button enables only after required fields are present; result avoids fraud-certainty language. |
-| Copy script | In the result page, use the copyable verification script control or confirm the script is visible if clipboard permissions are blocked. | Script is readable, official-channel oriented, and does not tell the student to click suspicious links. |
-| Save feedback | Save anonymous feedback after analysis. | Loading state appears, then success indicates storage mode; local fallback warning appears if Firebase failed; raw message is not included. |
-| Submit local report | Open `#report`, paste text, review redacted preview, enter country/destination, consent, and submit with Firebase unconfigured. | Report saves locally only, shows browser-only warning, and offers dashboard navigation. |
-| Dashboard local mode | Open `#dashboard`, select local report source mode. | Locally saved redacted report appears in metrics/trends; dashboard states local mode is browser-only and no raw messages are included. |
-| Dashboard sample mode | Select sample source mode. | Dashboard clearly labels sample/synthetic data and does not imply real institution metrics. |
-| Eval dashboard | Open `#eval`. | Evaluation dashboard loads and shows total examples plus guardrails that benchmark results are not real-world accuracy. |
-| Case library search | Open `#cases`, search for `visa`, `housing`, or `IELTS`, and use filters. | Results filter without crashing; empty states are understandable. |
-| Report redaction preview | Paste text containing an email, phone, passport-like ID, URL, and card-like number. | Preview replaces sensitive patterns where detected; user is warned redaction is best effort. |
-| Privacy page | Open `#privacy`. | Page explains local analysis, redacted reports, structured feedback, and limits of local/Firebase storage. |
-| Mobile width | Test around 375px width. | Navigation, forms, results, report preview, and dashboard controls remain usable without horizontal scrolling. |
-| Browser back/forward | Navigate home → checker → cases → dashboard, then use browser back/forward. | Visible page and URL hash stay consistent. |
-| Refresh direct routes | Refresh on `#checker` and `#eval`. | Correct page loads directly after refresh. |
-| Invalid route | Open an invalid hash such as `#not-real`. | App falls back safely to home and normal navigation still works. |
-| No raw message in feedback | After saving feedback, inspect localStorage key `crossBorderScamSafety.feedback.v1`. | Stored feedback contains structured score/context/tactic data only; it does not contain raw, redacted, full, or original message text. |
-| No raw message in local reports | After saving a report, inspect localStorage key `crossBorderScamSafety.reports.v1`. | Stored report contains redacted payload only; original raw message is not present. |
-| Clear local reports | Use “Clear saved local reports” on the report page and confirm. | Local reports are removed from browser localStorage; the control warns this is not institutional storage. |
+| Homepage | Open the deployed site or local preview. | Homepage loads with public MVP/beta status and no production-ready claims. |
+| Homepage CTA | Click “Check a suspicious message.” | `#checker` opens the checker. |
+| Checker demo | Select “Bank/card phishing” and analyze. | Result is high or critical; account/card/identity/click indicators and verification script appear. |
+| Scholarship demo | Select “Scholarship fee scam” and analyze. | Result shows scholarship/payment/guarantee-style risk indicators. |
+| Legitimate reminder | Test a normal university portal reminder. | Result remains low/medium, not high/critical. |
+| Custom suspicious message | Enter a synthetic suspicious message with context. | Result appears with safe next steps and no certainty claims. |
+| Verification script | Click copy script. | Script copies or browser gracefully blocks; text remains visible. |
+| Feedback | Save anonymous feedback. | Success message appears; feedback contains structured fields only. |
+| Report preview | Open `#report`, enter synthetic/redacted text. | Redacted preview appears and consent is required. |
+| Report local save | Submit with Firebase unconfigured. | Report saves locally with localStorage warning and report ID. |
+| Dashboard local | Open dashboard and choose local mode. | Saved report appears; local mode warning is visible. |
+| Dashboard sample | Choose sample mode. | It is clearly labeled synthetic sample data only. |
+| Dashboard Firebase | Choose Firebase mode. | It clearly states Firebase querying is not connected/not decision-ready. |
+| Eval dashboard | Open `#eval`. | Evaluation dashboard loads and shows total benchmark examples and limitations. |
+| Case search | Open `#cases`, search for IELTS/housing/visa. | Cases filter or clean empty state appears. |
+| Resource packs | Review case library/resource cards. | Resource packs display with review/source limitations. |
+| Privacy page | Open `#privacy`. | Privacy page explains local analysis, redaction, feedback, and limits in practical language. |
+| Mobile width | Test at ~375px wide. | Navigation wraps, forms fit, buttons remain usable, no horizontal content loss. |
+| Back/forward | Navigate home → checker → cases → back/forward. | Visible page and hash stay aligned. |
+| Refresh hash route | Refresh/open direct `#checker`, `#cases`, `#report`, `#dashboard`, `#eval`. | Correct page remains visible. |
+| Invalid hash | Open `#not-real`. | App falls back cleanly to home; no crash. |
+| Feedback storage | Inspect `localStorage.crossBorderScamSafety.feedback.v1`. | No raw, redacted, full, or unredacted message appears. |
+| Report storage | Inspect `localStorage.crossBorderScamSafety.reports.v1`. | Only redacted report payload is stored; no raw message appears. |
+
+## Release gate
+
+- `npm install` passes for existing dependencies.
+- `npm test` passes.
+- `npm run build` passes.
+- `npm run test:e2e` passes.
+- If any privacy/storage test fails, stop the beta.

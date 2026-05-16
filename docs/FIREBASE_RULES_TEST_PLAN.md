@@ -1,115 +1,47 @@
-# Firebase Rules Test Plan Before Any Institution Pilot
+# Firebase Rules Test Plan
 
-This project is not ready for an education-center or institution pilot until Firestore rules are tested with the Firebase emulator and the resulting checks run in CI.
+Firebase dashboard/reporting is **not ready for institution pilots** until these Firestore rules are validated in the Firebase Emulator Suite using `@firebase/rules-unit-testing` or an equivalent CI-controlled emulator setup.
 
-## Scope
+## Why this is required before institution pilots
 
-Collections covered by the first rules test suite:
+International students may paste or summarize sensitive visa, banking, housing, education-agent, or document information. A rules regression could expose reports, accept raw messages, or allow public modification/deletion. Emulator tests are the minimum evidence that the intended privacy boundary exists outside UI copy.
 
-- `reports`
-- `anonymousFeedback`
-- representative public-deny checks for update/delete/read paths
+## Required test setup
 
-## Required tooling
+- Load `firestore.rules` into the emulator.
+- Use unauthenticated/public contexts for report and feedback create tests unless a future product decision requires auth.
+- Use authenticated admin and non-admin contexts for any future admin read tests.
+- Clear emulator data between tests.
+- Run in CI before deployment once dependencies are available.
 
-1. Add dev dependencies:
-   - `firebase-tools`
-   - `@firebase/rules-unit-testing`
-2. Add a script such as:
-   - `"test:rules": "firebase emulators:exec --only firestore \"vitest run firestore.rules.test.ts\""`
-3. Run with an isolated emulator project ID, for example `cross-border-scam-safety-rules-test`.
+## Required allow/deny matrix
 
-## Exact tests to implement
+| Test | Collection/path | Auth | Payload/action | Expected | Reason |
+| --- | --- | --- | --- | --- | --- |
+| Valid redacted report create allowed | `reports/{id}` | public | allowlisted fields including `redactedMessage`, score, level | Allow | Enables consent-based redacted reports. |
+| Report with `rawMessage` denied | `reports/{id}` | public | valid report + `rawMessage` | Deny | Raw messages must never be accepted. |
+| Report with `message` denied | `reports/{id}` | public | valid report + `message` | Deny | Blocks common raw-text field name. |
+| Report with `fullMessage` denied | `reports/{id}` | public | valid report + `fullMessage` | Deny | Blocks full raw text. |
+| Report with `unredactedMessage` denied | `reports/{id}` | public | valid report + `unredactedMessage` | Deny | Blocks explicit unredacted text. |
+| Public read reports denied | `reports/{id}` | public | get/list | Deny | Public cannot read student trend reports. |
+| Public update reports denied | `reports/{id}` | public | update | Deny | Prevent tampering. |
+| Public delete reports denied | `reports/{id}` | public | delete | Deny | Prevent unauthorized deletion. |
+| Valid anonymous feedback create allowed | `anonymousFeedback/{id}` | public | structured fields only | Allow | Enables calibration without raw text. |
+| Feedback with `rawMessage` denied | `anonymousFeedback/{id}` | public | valid feedback + `rawMessage` | Deny | Feedback must not collect raw text. |
+| Feedback with `redactedMessage` denied | `anonymousFeedback/{id}` | public | valid feedback + `redactedMessage` | Deny | Feedback should not store message excerpts. |
+| Public read feedback denied | `anonymousFeedback/{id}` | public | get/list | Deny | Public cannot read calibration data. |
+| Public update feedback denied | `anonymousFeedback/{id}` | public | update | Deny | Prevent tampering. |
+| Public delete feedback denied | `anonymousFeedback/{id}` | public | delete | Deny | Prevent unauthorized deletion. |
+| Pilot request with raw scam message denied | `pilotRequests/{id}` | public | payload with `rawMessage` or attachment-like field | Deny | Pilot leads must not submit private scam text. |
+| Valid pilot request allowed | `pilotRequests/{id}` | public | organization/contact/role/country/notes only | Allow | Allows contact requests without scam content. |
+| Default unknown collection read denied | `unknown/{id}` | public/auth | get/list | Deny | Deny-by-default posture. |
+| Default unknown collection write denied | `unknown/{id}` | public/auth | create/update/delete | Deny | Deny-by-default posture. |
 
-### Reports collection
+## Implementation sketch
 
-1. **Valid redacted report create is allowed**
-   - Create `/reports/{id}` with only allowed fields from `reportHasOnlyRedactedFields()`.
-   - Include `reportId`, `createdAtIso`, `redactedMessage`, `redactionCounts`, `highRiskMarkers`, `language`, `countryRegion`, `destinationCountry`, `platform`, `context`, `score`, `level`, `scamTypeGuess`, `consentVersion`, and `deletionInstructions`.
-   - Expected: `assertSucceeds`.
-
-2. **Report with `rawMessage` is denied**
-   - Add `rawMessage: "original text"` to an otherwise valid report.
-   - Expected: `assertFails`.
-
-3. **Report with `message` is denied**
-   - Add `message: "original text"`.
-   - Expected: `assertFails`.
-
-4. **Report with `fullMessage` is denied**
-   - Add `fullMessage: "original text"`.
-   - Expected: `assertFails`.
-
-5. **Report with `unredactedMessage` is denied**
-   - Add `unredactedMessage: "original text"`.
-   - Expected: `assertFails`.
-
-6. **Report with `attachments` is denied**
-   - Add `attachments: []` or any attachment-like metadata.
-   - Expected: `assertFails`.
-
-7. **Overlong redacted report is denied**
-   - Set `redactedMessage` to more than 5,000 characters.
-   - Expected: `assertFails`.
-
-8. **Public read of reports is denied**
-   - Try to read `/reports/{id}` as an unauthenticated client.
-   - Expected: `assertFails`.
-
-9. **Public update/delete of reports is denied**
-   - Try update and delete as an unauthenticated client.
-   - Expected: `assertFails`.
-
-### Anonymous feedback collection
-
-1. **Valid anonymous feedback create is allowed**
-   - Create `/anonymousFeedback/{id}` with only allowed structured fields from `feedbackHasOnlyStructuredFields()`.
-   - Include `id`, `createdAtIso`, `helpful`, `verifiedOfficialChannel`, `calibration`, `category`, `score`, `level`, `context`, `platform`, `tacticIds`, `riskAreaLevels`, `storageMode`, and `schemaVersion`.
-   - Expected: `assertSucceeds`.
-
-2. **Feedback with `rawMessage` is denied**
-   - Add `rawMessage`.
-   - Expected: `assertFails`.
-
-3. **Feedback with `message` is denied**
-   - Add `message`.
-   - Expected: `assertFails`.
-
-4. **Feedback with `redactedMessage` is denied**
-   - Add `redactedMessage`.
-   - Expected: `assertFails`.
-
-5. **Feedback with `fullMessage` is denied**
-   - Add `fullMessage`.
-   - Expected: `assertFails`.
-
-6. **Feedback with `unredactedMessage` is denied**
-   - Add `unredactedMessage`.
-   - Expected: `assertFails`.
-
-7. **Feedback with invalid enums is denied**
-   - Try `helpful: "maybe"`, `calibration: "unknown"`, or `level: "certain fraud"`.
-   - Expected: `assertFails`.
-
-8. **Public read of feedback is denied**
-   - Try unauthenticated read of `/anonymousFeedback/{id}`.
-   - Expected: `assertFails`.
-
-9. **Public update/delete of feedback is denied**
-   - Try update and delete as an unauthenticated client.
-   - Expected: `assertFails`.
-
-10. **Admin feedback read is allowed only with admin role claim**
-    - Read with auth token `{ role: "admin" }`.
-    - Expected: `assertSucceeds`.
-    - Read with no token or a non-admin token.
-    - Expected: `assertFails`.
-
-## CI go/no-go rule
-
-An education-center pilot must not start until:
-
-- all tests above pass in CI,
-- Firebase dashboard querying is either implemented behind authenticated role-based access or hidden/disabled,
-- data retention/deletion ownership is documented,
-- admin access and incident response are reviewed by a human privacy/security owner.
+1. Install emulator dependencies when registry access allows:
+   - `npm install -D @firebase/rules-unit-testing firebase-tools`
+2. Add `firebase.rules.test.ts` using `initializeTestEnvironment`.
+3. Use `assertSucceeds` for allowed creates and `assertFails` for denies.
+4. Add a CI script such as `npm run test:firebase-rules`.
+5. Block institution pilots until all rules tests pass in CI.
