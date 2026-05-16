@@ -4,7 +4,7 @@
 
 https://madijonovsardorbek544-cmyk.github.io/cross-border-scam-analyzer/
 
-This is a public MVP hosted on GitHub Pages. It is being built toward a validated, institution-ready scam safety platform for international students, families, counselors, education centers, and institutions. It detects **risk indicators** and provides safer verification steps; it does not claim certainty or replace legal, immigration, financial, emergency, or law-enforcement help.
+This is a public MVP hosted on GitHub Pages. It is being built toward a validated, institution-ready scam safety platform for international students, families, counselors, education centers, and institutions. It detects **risk indicators** and provides safer verification steps; it does not claim certainty or replace legal, immigration, financial, emergency, or law-enforcement help. **This is being validated; it is not certified fraud detection.**
 
 ## Positioning
 
@@ -18,24 +18,25 @@ International students and families make high-stakes decisions across unfamiliar
 
 - Local-first scam checker with score, level, top reasons, safe next steps, and copyable verification scripts.
 - Counselor / Analyst View showing all matched rules, evidence, rule weights, combination boosts, risk areas, false-positive warning, and score-level explanation.
-- Evaluation benchmark with 60 labeled examples covering high-risk phishing, international-student scams, legitimate messages, borderline messages, and adversarial wording.
+- Evaluation benchmark with 100 labeled examples covering high-risk phishing, international-student scams, legitimate messages, borderline messages, and adversarial wording.
 - Official resource packs for U.S., Canada, UK, Australia, testing providers, housing deposits, scholarship fees, and education-agent verification.
 - Case library connected to relevant resource packs.
 - Redacted report flow with consent and no raw message storage by default.
 - Anonymous feedback loop that stores structured calibration signals locally by default and never stores the raw message.
-- Pilot-ready institution dashboard with date range, sample/local/Firebase source mode, feedback insights, false-positive/missed-risk categories, recommended interventions, and Markdown report export.
-- Validation and pilot documentation for counselors, institutions, privacy review, and product requirements.
+- Pilot-ready institution dashboard with date range, sample/local/Firebase source mode, decision-maker weekly actions, student warnings, counselor actions, resource gaps, data quality warnings, and Markdown report export.
+- Validation and pilot documentation for counselors, institutions, resource review, student safety, privacy review, and product requirements.
 
 ## Architecture
 
 ```text
 React + Vite + TypeScript
 ├── src/main.tsx                         # Hash-based app routing for GitHub Pages
-├── src/pages/                           # Landing, checker, cases, report, dashboard, pilot, methodology, privacy
+├── src/pages/                           # Landing, checker, cases, report, dashboard, eval, pilot, methodology, privacy
 ├── src/components/                      # Shared UI components
 ├── src/lib/analyzer/                    # Transparent rules, scoring, safe next steps
-├── src/evaluation/examples.ts           # 60 labeled benchmark examples
+├── src/evaluation/examples.ts           # 100 labeled benchmark examples
 ├── src/evaluation/evaluateAnalyzer.test.ts # Evaluation regression tests
+├── src/evaluation/runEvaluation.ts      # Browser/local evaluation summary for #eval
 ├── src/data/resourcePacks.ts            # Structured official resource packs
 ├── src/lib/feedback/feedbackSchema.ts   # Anonymous feedback schema/storage
 ├── src/lib/privacy/                     # Redaction and anonymized report payloads
@@ -50,7 +51,7 @@ Routing remains hash-based and the Vite base path remains `/cross-border-scam-an
 
 The analyzer uses transparent rules and combination boosts rather than fake AI claims. Rules cover urgency, account lock threats, identity verification, click/action pressure, credential/OTP risk, financial account/card risk, authority impersonation, sensitive-data requests, payment pressure, suspicious links/domains, unofficial payment methods, vague institutions, unrealistic guarantees, visa threats, housing scarcity, test-score upgrade claims, personal-account payments, cross-border bureaucracy confusion, language mismatch, and platform risk.
 
-The benchmark tests assert that:
+The owner-only `#eval` route summarizes total examples, examples by category and expected risk level, low/high mismatch counts, average score by category, weakest categories, failed tactics, and failed examples. The benchmark tests assert that:
 
 - High-risk examples are not scored low.
 - Low-risk legitimate messages are not high/critical.
@@ -70,7 +71,7 @@ Resource packs provide structured safer-verification guidance for:
 - Scholarship fee safety
 - Education-agent verification safety
 
-Each pack includes who it helps, common scams, official verification steps, normal vs. suspicious requests, a safe script, related case tags, and official resource IDs.
+Each pack includes who it helps, common scams, official verification steps, normal vs. suspicious requests, a safe script, related case tags, official resource IDs, last reviewed date, confidence level, source notes, required institution review flag, and student/parent/counselor scripts.
 
 ## Feedback loop
 
@@ -95,9 +96,23 @@ A 30-day pilot should:
 
 Dashboard source modes make clear when data is sample, local browser data, or Firebase-backed.
 
+## Product credibility and validation assets
+
+- Evaluation dashboard: open `#eval` locally or on the GitHub Pages build to inspect benchmark behavior without uploading data.
+- Evaluation results doc: [`docs/EVALUATION_RESULTS.md`](docs/EVALUATION_RESULTS.md) explains what the benchmark checks and what it does not prove.
+- Resource review guide: [`docs/RESOURCE_REVIEW_GUIDE.md`](docs/RESOURCE_REVIEW_GUIDE.md) helps institutions replace starter guidance with approved official links.
+- Institution setup guide: [`docs/INSTITUTION_SETUP_GUIDE.md`](docs/INSTITUTION_SETUP_GUIDE.md) lists required contacts, owners, and privacy guardrails before a pilot.
+- Student safety guide: [`docs/STUDENT_SAFETY_GUIDE.md`](docs/STUDENT_SAFETY_GUIDE.md) gives calm verification steps for students and families.
+
+Clear validation statement: **This is being validated; it is not certified fraud detection.**
+
 ## Documentation
 
 - [Validation plan](docs/VALIDATION_PLAN.md)
+- [Evaluation results](docs/EVALUATION_RESULTS.md)
+- [Resource review guide](docs/RESOURCE_REVIEW_GUIDE.md)
+- [Institution setup guide](docs/INSTITUTION_SETUP_GUIDE.md)
+- [Student safety guide](docs/STUDENT_SAFETY_GUIDE.md)
 - [Pilot playbook](docs/PILOT_PLAYBOOK.md)
 - [Counselor interview guide](docs/COUNSELOR_INTERVIEW_GUIDE.md)
 - [Privacy threat model](docs/PRIVACY_THREAT_MODEL.md)
