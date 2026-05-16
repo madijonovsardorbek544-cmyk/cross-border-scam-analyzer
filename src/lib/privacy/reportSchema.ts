@@ -1,7 +1,9 @@
 import type { AnonymizedReportPayload, CheckInput, CheckResult } from '../../types';
 import { redactSensitiveText } from './redaction';
+import { removeUndefinedFields } from './payloadSanitizer';
 
 export const REPORT_CONSENT_VERSION = 'redacted-report-consent-v1';
+export const LOCAL_REPORTS_STORAGE_KEY = 'crossBorderScamSafety.reports.v1';
 
 function reportId(): string {
   const bytes = new Uint8Array(8);
@@ -21,7 +23,7 @@ function hostOnly(value?: string): string | undefined {
 
 export function createAnonymizedReportPayload(input: CheckInput, result: CheckResult): AnonymizedReportPayload {
   const redaction = redactSensitiveText(input.message);
-  return {
+  return removeUndefinedFields({
     reportId: reportId(),
     createdAtIso: new Date().toISOString(),
     redactedMessage: redaction.redactedText,
@@ -39,7 +41,30 @@ export function createAnonymizedReportPayload(input: CheckInput, result: CheckRe
     scamTypeGuess: input.context,
     consentVersion: REPORT_CONSENT_VERSION,
     deletionInstructions: 'Future production pilots should allow report deletion by report ID through institution support. This MVP stores only redacted payloads by default.',
-  };
+  });
+}
+
+export function readLocalReports(): AnonymizedReportPayload[] {
+  if (typeof window === 'undefined') return [];
+  try {
+    const raw = window.localStorage.getItem(LOCAL_REPORTS_STORAGE_KEY);
+    return raw ? (JSON.parse(raw) as AnonymizedReportPayload[]) : [];
+  } catch {
+    return [];
+  }
+}
+
+export function saveLocalReport(payload: AnonymizedReportPayload): AnonymizedReportPayload {
+  if (typeof window === 'undefined') return payload;
+  const existing = readLocalReports();
+  window.localStorage.setItem(LOCAL_REPORTS_STORAGE_KEY, JSON.stringify([payload, ...existing].slice(0, 250)));
+  return payload;
+}
+
+export function clearLocalReports(): void {
+  if (typeof window !== 'undefined') {
+    window.localStorage.removeItem(LOCAL_REPORTS_STORAGE_KEY);
+  }
 }
 
 export function payloadContainsRawSensitiveData(payload: AnonymizedReportPayload): boolean {

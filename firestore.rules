@@ -18,6 +18,38 @@ service cloud.firestore {
     function reportRejectsRawMessage() {
       return !request.resource.data.keys().hasAny(['rawMessage', 'message', 'fullMessage', 'unredactedMessage', 'attachments']);
     }
+    function feedbackHasOnlyStructuredFields() {
+      return request.resource.data.keys().hasOnly([
+        'id', 'createdAt', 'createdAtIso', 'helpful', 'verifiedOfficialChannel',
+        'calibration', 'category', 'score', 'level', 'context', 'platform',
+        'tacticIds', 'riskAreaLevels', 'storageMode', 'schemaVersion'
+      ]);
+    }
+    function feedbackRejectsMessageFields() {
+      return !request.resource.data.keys().hasAny([
+        'rawMessage', 'message', 'fullMessage', 'redactedMessage',
+        'unredactedMessage', 'attachments'
+      ]);
+    }
+    function feedbackLooksStructured() {
+      return request.resource.data.id is string
+        && request.resource.data.createdAtIso is string
+        && request.resource.data.helpful in ['yes', 'no']
+        && request.resource.data.verifiedOfficialChannel in ['yes', 'no', 'not yet']
+        && request.resource.data.calibration in ['too low', 'accurate', 'too high']
+        && request.resource.data.category in ['', 'missed risk', 'false alarm', 'unclear wording', 'useful']
+        && request.resource.data.score is int
+        && request.resource.data.score >= 0
+        && request.resource.data.score <= 100
+        && request.resource.data.level in ['low', 'medium', 'high', 'critical']
+        && request.resource.data.context is string
+        && request.resource.data.platform is string
+        && request.resource.data.tacticIds is list
+        && request.resource.data.riskAreaLevels is map
+        && request.resource.data.storageMode in ['local', 'firebase']
+        && request.resource.data.schemaVersion == 'feedback-v1';
+    }
+
     function reportLooksRedacted() {
       return request.resource.data.reportId is string
         && request.resource.data.redactedMessage is string
@@ -33,6 +65,14 @@ service cloud.firestore {
     match /reports/{reportId} {
       allow create: if reportHasOnlyRedactedFields() && reportRejectsRawMessage() && reportLooksRedacted();
       allow read, update, delete: if false;
+    }
+
+    // Anonymous feedback: structured calibration only. Raw, redacted, or original
+    // message fields are explicitly rejected; public clients can only create.
+    match /anonymousFeedback/{feedbackId} {
+      allow create: if feedbackHasOnlyStructuredFields() && feedbackRejectsMessageFields() && feedbackLooksStructured();
+      allow read: if hasRole('admin');
+      allow update, delete: if false;
     }
 
     // Users: each authenticated user can manage only their own profile.

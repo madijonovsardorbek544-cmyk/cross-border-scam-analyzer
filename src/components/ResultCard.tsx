@@ -19,14 +19,24 @@ export function ResultCard({ result, input, onReset }: { result: CheckResult; in
   const [verified, setVerified] = useState<FeedbackVerified>('not yet');
   const [calibration, setCalibration] = useState<FeedbackCalibration>('accurate');
   const [category, setCategory] = useState<FeedbackCategory>('');
-  const [saved, setSaved] = useState(false);
+  const [feedbackStatus, setFeedbackStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [feedbackMessage, setFeedbackMessage] = useState('');
   const topReasons = [...result.detectedTactics].sort((a, b) => b.weight - a.weight).slice(0, 3);
   const visibleTactics = result.detectedTactics.filter((x) => x.id !== 'noStrongRule');
   const relatedPacks = packsForText(`${input.message} ${input.context} ${result.detectedTactics.map((x) => x.label).join(' ')}`);
 
   const submitFeedback = async () => {
-    await saveAnonymousFeedback({ helpful, verifiedOfficialChannel: verified, calibration, category }, result, input.context, input.platform);
-    setSaved(true);
+    if (feedbackStatus === 'submitting' || feedbackStatus === 'success') return;
+    setFeedbackStatus('submitting');
+    setFeedbackMessage('');
+    try {
+      const outcome = await saveAnonymousFeedback({ helpful, verifiedOfficialChannel: verified, calibration, category }, result, input.context, input.platform);
+      setFeedbackStatus(outcome.warning ? 'error' : 'success');
+      setFeedbackMessage(outcome.warning ? `${outcome.warning} No raw message was stored.` : outcome.storageMode === 'firebase' ? 'Structured feedback submitted to Firebase. No raw message was included.' : 'Structured feedback saved only in this browser. No raw message was stored.');
+    } catch (error) {
+      setFeedbackStatus('error');
+      setFeedbackMessage(`Feedback could not be saved. Please try again. Error: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
   };
 
   return (
@@ -72,7 +82,7 @@ export function ResultCard({ result, input, onReset }: { result: CheckResult; in
           <label>Risk felt<select value={calibration} onChange={(e: { target: HTMLSelectElement }) => setCalibration(e.target.value as FeedbackCalibration)}><option>accurate</option><option>too low</option><option>too high</option></select></label>
           <label>Optional category<select value={category} onChange={(e: { target: HTMLSelectElement }) => setCategory(e.target.value as FeedbackCategory)}><option value="">Prefer not to say</option><option>missed risk</option><option>false alarm</option><option>unclear wording</option><option>useful</option></select></label>
         </div>
-        <div className="actions"><button onClick={submitFeedback} disabled={saved}>{saved ? 'Feedback saved' : 'Save anonymous feedback'}</button><button className="ghost" onClick={onReset}>Analyze another message</button></div>
+        {feedbackMessage && <div className={feedbackStatus === 'error' ? 'errors' : 'notice'}>{feedbackMessage}</div>}<div className="actions"><button onClick={submitFeedback} disabled={feedbackStatus === 'submitting' || feedbackStatus === 'success'}>{feedbackStatus === 'submitting' ? 'Saving…' : feedbackStatus === 'success' ? 'Feedback saved' : 'Save anonymous feedback'}</button><button className="ghost" onClick={onReset}>Analyze another message</button></div>
       </section>
     </section>
   );
