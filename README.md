@@ -8,11 +8,21 @@ This is a public MVP under validation hosted on GitHub Pages. It is being built 
 
 ## Readiness status
 
+### Controlled beta status
+
 - Ready for self-testing and controlled friends/student feedback with clear disclaimers.
-- Partially ready for counselor review of wording, workflows, and resource gaps.
+- Ready for counselor feedback on wording, workflow, safe-next-step usefulness, and resource gaps.
 - Not ready for education-center or institution pilots until Firebase configuration, Firestore rules emulator tests, data retention, admin access, and human validation are completed.
 - Not ready for paid institution use. It is not certified fraud detection and must not be marketed as guaranteed scam detection.
 - Sample dashboard data is synthetic/sample data, not real institution data. Local dashboard data exists only in the user's browser.
+- Firebase dashboard mode is **not connected yet**; it is a labeled placeholder until authenticated Firestore queries, rules tests, retention, deletion, and admin access are implemented.
+- Local reports are browser-only localStorage records. They are not encrypted, not synced, and not institutional storage.
+
+Controlled beta references:
+
+- [Manual beta QA checklist](docs/BETA_QA_CHECKLIST.md)
+- [Controlled beta guide](docs/CONTROLLED_BETA_GUIDE.md)
+- [Firebase rules test plan](docs/FIREBASE_RULES_TEST_PLAN.md)
 
 ## Positioning
 
@@ -54,6 +64,19 @@ React + Vite + TypeScript
 ```
 
 Routing remains hash-based and the Vite base path remains `/cross-border-scam-analyzer/` for GitHub Pages.
+
+## Controlled beta testing
+
+Automated coverage includes analyzer/privacy regression tests and jsdom-based controlled-beta flow tests for hash routing, homepage CTAs, the bank/card phishing demo, feedback storage, local redacted reports, dashboard local mode, case search, eval dashboard loading, and invalid-route fallback. Playwright E2E was attempted for this pass, but package installation was blocked by registry policy (`403 Forbidden` for `@playwright/test`), so browser E2E remains a pre-pilot TODO.
+
+Run:
+
+```bash
+npm test
+npm run build
+```
+
+Before any institution pilot, also implement the emulator suite in [Firebase rules test plan](docs/FIREBASE_RULES_TEST_PLAN.md).
 
 ## Evaluation-driven analyzer
 

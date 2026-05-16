@@ -15,7 +15,7 @@ export const demoMessages: DemoMessage[] = [
     input: {
       message: 'Synthetic demo sample: We detected unauthorized login activity on your account. Your card is temporarily locked. Click here immediately to verify your identity.',
       language: 'English',
-      countryRegion: 'Student/family country or region',
+      countryRegion: 'Synthetic demo student region',
       destinationCountry: 'United States',
       platform: 'SMS',
       context: 'payment',
@@ -30,7 +30,7 @@ export const demoMessages: DemoMessage[] = [
     input: {
       message: 'Synthetic demo example: Congratulations, you are selected for the Global Merit Scholarship. To secure your guaranteed award today, pay a $420 processing and legalization fee by wire transfer to our regional coordinator. Send your passport page and bank statement before midnight or the scholarship will be reassigned.',
       language: 'English',
-      countryRegion: 'Student/family country or region',
+      countryRegion: 'Synthetic demo student region',
       destinationCountry: 'United States',
       platform: 'email',
       context: 'scholarship',
@@ -45,7 +45,7 @@ export const demoMessages: DemoMessage[] = [
     input: {
       message: 'Synthetic demo example: Final visa appointment warning. Your student visa slot will be cancelled in 2 hours unless you confirm through this WhatsApp officer and pay the emergency embassy scheduling fee by gift card. Send your passport number, date of birth, and login code now.',
       language: 'English',
-      countryRegion: 'Student/family country or region',
+      countryRegion: 'Synthetic demo student region',
       destinationCountry: 'Canada',
       platform: 'WhatsApp',
       context: 'visa',
@@ -60,7 +60,7 @@ export const demoMessages: DemoMessage[] = [
     input: {
       message: 'Synthetic demo example: International student room near campus available today only. Many applicants are waiting. Deposit 900 USDT to reserve before arrival. No viewing needed. Send passport photo and exact arrival address after payment.',
       language: 'English',
-      countryRegion: 'Student/family country or region',
+      countryRegion: 'Synthetic demo student region',
       destinationCountry: 'United Kingdom',
       platform: 'Telegram',
       context: 'housing',
@@ -75,7 +75,7 @@ export const demoMessages: DemoMessage[] = [
     input: {
       message: 'Synthetic demo example: We can upgrade IELTS or SAT score in official database within 24 hours. 100% guaranteed admission support. Pay half by Bitcoin now and send your candidate login, password, and test registration number.',
       language: 'English',
-      countryRegion: 'Student/family country or region',
+      countryRegion: 'Synthetic demo student region',
       destinationCountry: 'Australia',
       platform: 'Instagram',
       context: 'test registration',
@@ -90,7 +90,7 @@ export const demoMessages: DemoMessage[] = [
     input: {
       message: 'Synthetic demo example: Your admission is approved but incomplete. Use the new international portal at https://admissions-confirm.example.info to upload passport scan, bank statement, and pay the refundable enrollment fee today. Do not contact the university office because this is a private priority route.',
       language: 'English',
-      countryRegion: 'Student/family country or region',
+      countryRegion: 'Synthetic demo student region',
       destinationCountry: 'United States',
       platform: 'website',
       context: 'admission',

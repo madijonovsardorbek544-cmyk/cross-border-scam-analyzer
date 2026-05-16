@@ -1,7 +1,8 @@
 import { Library, Lock, School, Search, ShieldCheck } from 'lucide-react';
 import { goTo } from '../data/appData';
+import type { AppRoute } from '../lib/routes';
 
-export function Landing({ setPage }: { setPage: (page: string) => void }) {
+export function Landing({ setPage }: { setPage: (page: AppRoute) => void }) {
   return (
     <main>
       <section className="hero">
@@ -9,7 +10,7 @@ export function Landing({ setPage }: { setPage: (page: string) => void }) {
           <p className="eyebrow">Evaluation-driven scam safety for international education</p>
           <h1>Help international students verify suspicious study-abroad messages before they pay, click, or send documents.</h1>
           <p className="lead">A public MVP being built toward a validated, institution-ready scam safety platform. The checker detects risk indicators for visa, admission, scholarship, housing, testing, payment, document, and education-agent scams without storing raw messages by default.</p>
-          <div className="actions"><button onClick={() => goTo('checker', setPage)}>Check a suspicious message</button><button className="secondary" onClick={() => goTo('cases', setPage)}>View case library</button><button className="ghost" onClick={() => goTo('pilot', setPage)}>Explore institution pilot</button></div>
+          <div className="actions"><button onClick={() => goTo('checker', setPage as (page: string) => void)}>Check a suspicious message</button><button className="secondary" onClick={() => goTo('cases', setPage as (page: string) => void)}>View case library</button><button className="ghost" onClick={() => goTo('pilot', setPage as (page: string) => void)}>Explore institution pilot</button></div>
           <div className="trust-badges"><span><Lock /> Local analysis by default</span><span><Library /> Redacted reporting</span><span><School /> Built for international students</span></div>
         </div>
         <aside className="trust-card"><ShieldCheck /><h2>Risk indicators, not certainty</h2><p>The MVP explains why a message looks risky and routes students back to official verification channels. It does not prove fraud or replace legal, immigration, financial, or emergency help.</p></aside>

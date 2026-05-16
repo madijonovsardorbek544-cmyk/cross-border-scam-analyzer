@@ -21,18 +21,31 @@ export function ResultCard({ result, input, onReset }: { result: CheckResult; in
   const [category, setCategory] = useState<FeedbackCategory>('');
   const [feedbackStatus, setFeedbackStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [feedbackMessage, setFeedbackMessage] = useState('');
+  const [lastFeedbackSignature, setLastFeedbackSignature] = useState('');
   const topReasons = [...result.detectedTactics].sort((a, b) => b.weight - a.weight).slice(0, 3);
   const visibleTactics = result.detectedTactics.filter((x) => x.id !== 'noStrongRule');
   const relatedPacks = packsForText(`${input.message} ${input.context} ${result.detectedTactics.map((x) => x.label).join(' ')}`);
 
+  const feedbackSignature = JSON.stringify({ helpful, verified, calibration, category });
+  const feedbackChanged = feedbackSignature !== lastFeedbackSignature;
+
+  const updateFeedback = <T,>(setter: (value: T) => void, value: T) => {
+    setter(value);
+    if (feedbackStatus === 'success') {
+      setFeedbackStatus('idle');
+      setFeedbackMessage('Feedback changed. Save again to update the structured feedback record.');
+    }
+  };
+
   const submitFeedback = async () => {
-    if (feedbackStatus === 'submitting' || feedbackStatus === 'success') return;
+    if (feedbackStatus === 'submitting' || (feedbackStatus === 'success' && !feedbackChanged)) return;
     setFeedbackStatus('submitting');
     setFeedbackMessage('');
     try {
       const outcome = await saveAnonymousFeedback({ helpful, verifiedOfficialChannel: verified, calibration, category }, result, input.context, input.platform);
       setFeedbackStatus(outcome.warning ? 'error' : 'success');
-      setFeedbackMessage(outcome.warning ? `${outcome.warning} No raw message was stored.` : outcome.storageMode === 'firebase' ? 'Structured feedback submitted to Firebase. No raw message was included.' : 'Structured feedback saved only in this browser. No raw message was stored.');
+      setLastFeedbackSignature(feedbackSignature);
+      setFeedbackMessage(outcome.warning ? `Firebase feedback save failed; local browser fallback was used. ${outcome.warning} No raw message was stored.` : outcome.storageMode === 'firebase' ? 'Structured feedback submitted to Firebase. Storage mode: Firebase. No raw message was included.' : 'Structured feedback saved only in this browser. Storage mode: local. No raw message was stored.');
     } catch (error) {
       setFeedbackStatus('error');
       setFeedbackMessage(`Feedback could not be saved. Please try again. Error: ${error instanceof Error ? error.message : 'Unknown error'}`);
@@ -77,12 +90,12 @@ export function ResultCard({ result, input, onReset }: { result: CheckResult; in
         <h3>Anonymous feedback</h3>
         <p className="muted">Stored locally by default; if Firebase is configured, only this structured feedback is submitted. The raw message is never stored in feedback.</p>
         <div className="form-grid">
-          <label>Was this helpful?<select value={helpful} onChange={(e: { target: HTMLSelectElement }) => setHelpful(e.target.value as FeedbackHelpful)}><option>yes</option><option>no</option></select></label>
-          <label>Verified officially?<select value={verified} onChange={(e: { target: HTMLSelectElement }) => setVerified(e.target.value as FeedbackVerified)}><option>not yet</option><option>yes</option><option>no</option></select></label>
-          <label>Risk felt<select value={calibration} onChange={(e: { target: HTMLSelectElement }) => setCalibration(e.target.value as FeedbackCalibration)}><option>accurate</option><option>too low</option><option>too high</option></select></label>
-          <label>Optional category<select value={category} onChange={(e: { target: HTMLSelectElement }) => setCategory(e.target.value as FeedbackCategory)}><option value="">Prefer not to say</option><option>missed risk</option><option>false alarm</option><option>unclear wording</option><option>useful</option></select></label>
+          <label>Was this helpful?<select value={helpful} onChange={(e: { target: HTMLSelectElement }) => updateFeedback(setHelpful, e.target.value as FeedbackHelpful)}><option>yes</option><option>no</option></select></label>
+          <label>Verified officially?<select value={verified} onChange={(e: { target: HTMLSelectElement }) => updateFeedback(setVerified, e.target.value as FeedbackVerified)}><option>not yet</option><option>yes</option><option>no</option></select></label>
+          <label>Risk felt<select value={calibration} onChange={(e: { target: HTMLSelectElement }) => updateFeedback(setCalibration, e.target.value as FeedbackCalibration)}><option>accurate</option><option>too low</option><option>too high</option></select></label>
+          <label>Optional category<select value={category} onChange={(e: { target: HTMLSelectElement }) => updateFeedback(setCategory, e.target.value as FeedbackCategory)}><option value="">Prefer not to say</option><option>missed risk</option><option>false alarm</option><option>unclear wording</option><option>useful</option></select></label>
         </div>
-        {feedbackMessage && <div className={feedbackStatus === 'error' ? 'errors' : 'notice'}>{feedbackMessage}</div>}<div className="actions"><button onClick={submitFeedback} disabled={feedbackStatus === 'submitting' || feedbackStatus === 'success'}>{feedbackStatus === 'submitting' ? 'Saving…' : feedbackStatus === 'success' ? 'Feedback saved' : 'Save anonymous feedback'}</button><button className="ghost" onClick={onReset}>Analyze another message</button></div>
+        {feedbackMessage && <div className={feedbackStatus === 'error' ? 'errors' : 'notice'}>{feedbackMessage}</div>}<div className="actions"><button onClick={submitFeedback} disabled={feedbackStatus === 'submitting' || (feedbackStatus === 'success' && !feedbackChanged)}>{feedbackStatus === 'submitting' ? 'Saving…' : feedbackStatus === 'success' && !feedbackChanged ? 'Feedback saved' : 'Save anonymous feedback'}</button><button className="ghost" onClick={onReset}>Analyze another message</button></div>
       </section>
     </section>
   );
