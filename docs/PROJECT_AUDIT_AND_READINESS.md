@@ -178,3 +178,52 @@ https://madijonovsardorbek544-cmyk.github.io/cross-border-scam-analyzer/
 - **Ready for counselor feedback?** Partially. Good for workflow/content review, not operational decisions.
 - **Ready for education center pilot?** Not yet. Requires Firebase/rules emulator testing, data governance, resource review, retention/deletion process, and counselor escalation process.
 - **Ready for paid institution use?** No. It lacks production security review, verified pilots, real-world validation, tenant access controls, admin auditability, support process, legal/privacy agreements, and certified detection claims.
+
+## I. Controlled beta readiness checklist
+
+This checklist reflects the current controlled-beta goal: honest, stable, testable feedback from the owner, trusted students/friends, and counselors. It does **not** make the product production-ready.
+
+### Code checks
+
+- `npm install`, `npm test`, and `npm run build` must pass before sharing a beta link.
+- Hash routes should support direct links for `#checker`, `#cases`, `#dashboard`, and `#eval`.
+- Browser back/forward should keep the visible page and URL hash aligned.
+- Invalid hashes should fall back to home instead of rendering a broken page.
+- Custom analysis and reporting should require message text, student/family country or region, and destination country.
+- Demo data may use synthetic defaults only when clearly labeled as demo/synthetic.
+
+### E2E/manual QA
+
+- Automated jsdom flow tests now cover the main controlled-beta paths, including homepage CTAs, bank/card phishing demo, high/critical indicators, feedback save, local redacted report save, local dashboard mode, case search, eval dashboard, and invalid-route fallback.
+- Full Playwright browser E2E remains a TODO because `@playwright/test` installation was blocked by registry policy in this environment.
+- Manual release checks should use `docs/BETA_QA_CHECKLIST.md` on the deployed site and at mobile width.
+
+### Privacy checks
+
+- Do not store raw suspicious messages by default.
+- Feedback records must remain structured only and must not include raw, redacted, full, or unredacted message fields.
+- Local reports must store redacted payloads only and must not preserve placeholder country/destination values from blank forms.
+- The report page must warn that localStorage is browser-only, not encrypted, not synced, and not institutional storage.
+- Redaction is best effort; testers must review the preview and remove private data before consenting.
+
+### Firebase limitations
+
+- Firebase report submission can be attempted only if configuration exists, but Firebase dashboard querying is not connected in this MVP.
+- Firestore rules have allowlists and raw-message denials, but emulator rules tests are not implemented yet.
+- `docs/FIREBASE_RULES_TEST_PLAN.md` lists the exact required rules tests before any education-center pilot.
+- Authentication, admin roles, retention, deletion-by-report-ID, monitoring, and incident response remain unresolved for institution use.
+
+### Human testing requirements
+
+- Testers must be told this detects risk indicators, not certainty.
+- Testers must not paste passports, student IDs, card/bank numbers, passwords, OTPs, exact addresses, private documents, or screenshots with personal data.
+- Counselors should review wording, escalation paths, and official-resource guidance before wider student exposure.
+- Real suspicious messages should be summarized or paraphrased without identifiers in beta notes.
+
+### Go/no-go conditions
+
+- **Self-testing:** Go if automated tests/build pass and no raw message is found in local feedback/report storage.
+- **Small student/friend testing:** Go only with the controlled beta guide, privacy instructions, and a stop-testing plan.
+- **Counselor feedback:** Go for content/workflow review; do not ask counselors to treat outputs as operational decisions.
+- **Education-center pilot:** No-go until Firebase emulator rules tests, authenticated dashboard querying or disabled Firebase mode, data governance, retention/deletion, and counselor escalation procedures are validated.
+- **Paid institution use:** No-go until production security/privacy review, human validation, tenant access controls, support processes, legal/privacy agreements, and truthful marketing review are complete.

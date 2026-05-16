@@ -1,5 +1,6 @@
 declare module 'react' {
   export const useMemo: <T>(factory: () => T, deps: unknown[]) => T;
+  export const useEffect: (effect: () => void | (() => void), deps?: unknown[]) => void;
   export const useState: <T>(initial: T) => [T, (value: T | ((previous: T) => T)) => void];
   export type ReactNode = unknown;
 }

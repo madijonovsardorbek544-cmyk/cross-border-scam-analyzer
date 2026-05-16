@@ -7,14 +7,14 @@ export const officialResources = officialResourcesData as OfficialResource[];
 export const platforms: Platform[] = ['email', 'SMS', 'Telegram', 'WhatsApp', 'Instagram', 'website', 'phone call', 'other'];
 export const contexts: ContextType[] = ['scholarship', 'visa', 'admission', 'payment', 'housing', 'test registration', 'job', 'document/legalization', 'education agent', 'other'];
 export const languages = ['English', 'Spanish', 'French', 'Arabic', 'Hindi', 'Mandarin', 'Portuguese', 'Vietnamese', 'Other'];
-export const pages = ['home', 'checker', 'cases', 'report', 'dashboard', 'pilot', 'methodology', 'privacy'];
+export const pages = ['home', 'checker', 'cases', 'report', 'dashboard', 'pilot', 'methodology', 'privacy', 'eval'];
 export const neverSubmitItems = ['passport scans', 'student IDs', 'card numbers', 'login codes', 'exact addresses', 'private documents', 'screenshots with personal data'];
 
 export const blankInput: CheckInput = {
   message: '',
   language: 'English',
-  countryRegion: 'Student/family country or region',
-  destinationCountry: 'United States',
+  countryRegion: '',
+  destinationCountry: '',
   platform: 'email',
   context: 'scholarship',
   claimedAuthority: '',
