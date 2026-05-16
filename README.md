@@ -4,7 +4,15 @@
 
 https://madijonovsardorbek544-cmyk.github.io/cross-border-scam-analyzer/
 
-This is a public MVP hosted on GitHub Pages. It is being built toward a validated, institution-ready scam safety platform for international students, families, counselors, education centers, and institutions. It detects **risk indicators** and provides safer verification steps; it does not claim certainty or replace legal, immigration, financial, emergency, or law-enforcement help. **This is being validated; it is not certified fraud detection.**
+This is a public MVP under validation hosted on GitHub Pages. It is being built toward a validated, institution-ready scam safety platform for international students, families, counselors, education centers, and institutions. It detects **risk indicators** and provides safer verification steps; it does not claim certainty or replace legal, immigration, financial, emergency, or law-enforcement help. **This is being validated; it is not certified fraud detection.**
+
+## Readiness status
+
+- Ready for self-testing and controlled friends/student feedback with clear disclaimers.
+- Partially ready for counselor review of wording, workflows, and resource gaps.
+- Not ready for education-center or institution pilots until Firebase configuration, Firestore rules emulator tests, data retention, admin access, and human validation are completed.
+- Not ready for paid institution use. It is not certified fraud detection and must not be marketed as guaranteed scam detection.
+- Sample dashboard data is synthetic/sample data, not real institution data. Local dashboard data exists only in the user's browser.
 
 ## Positioning
 
@@ -18,12 +26,12 @@ International students and families make high-stakes decisions across unfamiliar
 
 - Local-first scam checker with score, level, top reasons, safe next steps, and copyable verification scripts.
 - Counselor / Analyst View showing all matched rules, evidence, rule weights, combination boosts, risk areas, false-positive warning, and score-level explanation.
-- Evaluation benchmark with 100 labeled examples covering high-risk phishing, international-student scams, legitimate messages, borderline messages, and adversarial wording.
+- Evaluation benchmark with labeled synthetic examples covering high-risk phishing, international-student scams, legitimate messages, borderline messages, and adversarial wording. These examples are regression checks, not real-world accuracy proof.
 - Official resource packs for U.S., Canada, UK, Australia, testing providers, housing deposits, scholarship fees, and education-agent verification.
 - Case library connected to relevant resource packs.
 - Redacted report flow with consent and no raw message storage by default.
 - Anonymous feedback loop that stores structured calibration signals locally by default and never stores the raw message.
-- Pilot-ready institution dashboard with date range, sample/local/Firebase source mode, decision-maker weekly actions, student warnings, counselor actions, resource gaps, data quality warnings, and Markdown report export.
+- Institution dashboard MVP with date range, sample/local/Firebase-labeled source mode, decision-maker weekly actions, student warnings, counselor actions, resource gaps, data quality warnings, and Markdown report export.
 - Validation and pilot documentation for counselors, institutions, resource review, student safety, privacy review, and product requirements.
 
 ## Architecture
@@ -94,7 +102,7 @@ A 30-day pilot should:
 4. Review dashboard trends, false-positive categories, missed-risk categories, and recommended interventions.
 5. Export a Markdown awareness report and decide whether to continue, revise, expand, or stop.
 
-Dashboard source modes make clear when data is sample, local browser data, or Firebase-backed.
+Dashboard source modes make clear when data is sample, local browser data, or Firebase-labeled. Firebase dashboard querying is not connected in this MVP unless it is explicitly implemented and security-reviewed by the deployer.
 
 ## Product credibility and validation assets
 
@@ -117,6 +125,7 @@ Clear validation statement: **This is being validated; it is not certified fraud
 - [Counselor interview guide](docs/COUNSELOR_INTERVIEW_GUIDE.md)
 - [Privacy threat model](docs/PRIVACY_THREAT_MODEL.md)
 - [Product requirements](docs/PRODUCT_REQUIREMENTS.md)
+- [Project audit and readiness](docs/PROJECT_AUDIT_AND_READINESS.md)
 - [Security policy](SECURITY.md)
 
 ## Privacy principles
@@ -151,7 +160,7 @@ Set these Vite environment variables in `.env.local` or your hosting provider:
 - `VITE_FIREBASE_MESSAGING_SENDER_ID`
 - `VITE_FIREBASE_APP_ID`
 
-Firebase web config values are public identifiers, not server secrets. Never commit service account keys. Review Firestore rules, authentication, retention, and access controls before real pilots.
+Firebase web config values are public identifiers, not server secrets. Never commit service account keys. Reporting and feedback require configured Firebase, deployed Firestore rules, authentication/admin access decisions, retention policy, and security review before real pilots. The current dashboard does not query Firestore data; it shows synthetic sample data or local browser reports/feedback.
 
 ## Deployment
 
@@ -163,5 +172,7 @@ GitHub Pages deployment should build the Vite app and publish `dist`. Keep the V
 - Benchmark examples are useful regression checks but are not a substitute for human validation.
 - Redaction is best effort and should not receive private documents or images.
 - Official resources require institution-specific review before real pilots.
-- Firebase setup and Firestore rules require production security review.
+- Firebase setup and Firestore rules require emulator testing and production security review.
+- Firebase dashboard mode is clearly labeled but not connected to Firestore queries in this MVP.
+- Local mode stores redacted reports and structured feedback only in the current browser's localStorage; it is not shared with counselors or institutions.
 - The MVP does not provide legal, immigration, financial, law-enforcement, or emergency assistance.
