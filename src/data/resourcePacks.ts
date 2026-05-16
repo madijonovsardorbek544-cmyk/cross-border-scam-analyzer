@@ -9,9 +9,16 @@ export interface ResourcePack {
   safeScript: string;
   relatedCaseTags: string[];
   officialResourceIds: string[];
+  lastReviewedDate: string;
+  confidenceLevel: 'low' | 'medium' | 'high';
+  sourceNotes: string;
+  requiredInstitutionReview: boolean;
+  counselorEscalationScript: string;
+  parentFriendlyScript: string;
+  studentFriendlyScript: string;
 }
 
-export const resourcePacks: ResourcePack[] = [
+const baseResourcePacks: Array<Omit<ResourcePack, 'lastReviewedDate' | 'confidenceLevel' | 'sourceNotes' | 'requiredInstitutionReview' | 'counselorEscalationScript' | 'parentFriendlyScript' | 'studentFriendlyScript'>> = [
   {
     id: 'us-student-visa-safety',
     title: 'U.S. student visa safety pack',
@@ -109,6 +116,21 @@ export const resourcePacks: ResourcePack[] = [
     officialResourceIds: ['institution-agent-list', 'admissions-office'],
   },
 ];
+
+const defaultReviewFields = {
+  lastReviewedDate: '2026-05-15',
+  confidenceLevel: 'medium' as const,
+  requiredInstitutionReview: true,
+  counselorEscalationScript: 'I am reviewing a student message that may involve this process. Please verify the official payment, document, or portal instructions using institution-owned contacts before the student responds.',
+  parentFriendlyScript: 'We are going to pause and verify this through the school or government website we type ourselves. Please do not send money, codes, or documents until an official contact confirms it.',
+  studentFriendlyScript: 'Pause, save the message, and ask your counselor or international office to verify it through an official website or published contact before you click, pay, or send documents.',
+};
+
+export const resourcePacks: ResourcePack[] = baseResourcePacks.map((pack) => ({
+  ...pack,
+  ...defaultReviewFields,
+  sourceNotes: `${pack.title} uses general safety guidance and placeholder official-resource IDs. Replace or confirm all links and scripts with institution-approved sources before a pilot.`,
+}));
 
 export function packsForText(text: string, tags: string[] = []): ResourcePack[] {
   const haystack = `${text} ${tags.join(' ')}`.toLowerCase();
