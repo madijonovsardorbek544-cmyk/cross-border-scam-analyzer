@@ -3,7 +3,7 @@ import { AlertTriangle, Library } from 'lucide-react';
 import { copyText } from '../data/appData';
 import { packsForText } from '../data/resourcePacks';
 import { saveAnonymousFeedback, type FeedbackCalibration, type FeedbackCategory, type FeedbackHelpful, type FeedbackVerified } from '../lib/feedback/feedbackSchema';
-import type { CheckInput, CheckResult } from '../types';
+import type { CheckInput, CheckResult, RiskArea } from '../types';
 import { RiskAreaCard } from './RiskAreaCard';
 
 function levelExplanation(result: CheckResult) {
@@ -25,6 +25,16 @@ export function ResultCard({ result, input, onReset }: { result: CheckResult; in
   const topReasons = [...result.detectedTactics].sort((a, b) => b.weight - a.weight).slice(0, 3);
   const visibleTactics = result.detectedTactics.filter((x) => x.id !== 'noStrongRule');
   const relatedPacks = packsForText(`${input.message} ${input.context} ${result.detectedTactics.map((x) => x.label).join(' ')}`);
+  const riskAreas: Array<[string, RiskArea]> = [
+    ['Account security risk', result.accountSecurityRisk],
+    ['Credential/OTP risk', result.credentialRisk],
+    ['Financial account/card risk', result.financialAccountRisk],
+    ['Action pressure risk', result.actionPressureRisk],
+    ['Payment risk', result.paymentRisk],
+    ['Sensitive data risk', result.sensitiveDataRisk],
+    ['Link/domain risk', result.linkDomainRisk],
+  ];
+  const elevatedRiskAreas = riskAreas.filter(([, area]) => area.level !== 'low');
 
   const feedbackSignature = JSON.stringify({ helpful, verified, calibration, category });
   const feedbackChanged = feedbackSignature !== lastFeedbackSignature;
@@ -66,11 +76,14 @@ export function ResultCard({ result, input, onReset }: { result: CheckResult; in
       </div>
 
       {!analystView ? (
-        <div className="grid three">
-          <article><h3>Top 3 reasons</h3><ol className="checklist">{topReasons.map((x) => <li key={x.id}><strong>{x.label}</strong><br /><span>{x.description}</span>{x.evidence.length > 0 && <small> Evidence: {x.evidence.join(', ')}</small>}</li>)}</ol></article>
-          <article><h3>Safe next steps</h3><ol className="checklist">{result.safeNextSteps.map((x) => <li key={x}>{x}</li>)}</ol><p className="notice">{result.trustedAdultNote}</p></article>
-          <article><h3>Copyable verification script</h3><blockquote>{result.officialVerificationScript}</blockquote><button onClick={() => copyText(result.officialVerificationScript)}><Library /> Copy script</button></article>
-        </div>
+        <>
+          <div className="grid three">
+            <article><h3>Top 3 reasons</h3><ol className="checklist">{topReasons.map((x) => <li key={x.id}><strong>{x.label}</strong><br /><span>{x.description}</span>{x.evidence.length > 0 && <small> Evidence: {x.evidence.join(', ')}</small>}</li>)}</ol></article>
+            <article><h3>Safe next steps</h3><ol className="checklist">{result.safeNextSteps.map((x) => <li key={x}>{x}</li>)}</ol><p className="notice">{result.trustedAdultNote}</p></article>
+            <article><h3>Copyable verification script</h3><blockquote>{result.officialVerificationScript}</blockquote><button onClick={() => copyText(result.officialVerificationScript)}><Library /> Copy script</button></article>
+          </div>
+          <article className="notice"><h3>Action clarity</h3><p>Do not act from the suspicious message. Verify through a website or phone number you type yourself, and ask a counselor/trusted adult if payment, documents, accounts, cards, identity, or one-time codes are involved.</p><p><strong>Detected indicators:</strong> {visibleTactics.length ? visibleTactics.map((tactic) => tactic.label).join(', ') : 'No strong rule matched.'}</p><p><strong>Elevated risk areas:</strong> {elevatedRiskAreas.length ? elevatedRiskAreas.map(([label]) => label).join(', ') : 'No elevated risk areas beyond normal verification.'}</p></article>
+        </>
       ) : (
         <>
           <div className="grid two">

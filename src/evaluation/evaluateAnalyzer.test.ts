@@ -23,8 +23,8 @@ function labelMatches(labels: string[], expected: string) {
 }
 
 describe('evaluation benchmark coverage', () => {
-  it('contains at least 100 labeled examples across required groups', () => {
-    expect(evaluationExamples.length).toBeGreaterThanOrEqual(100);
+  it('contains at least 120 labeled examples across required groups', () => {
+    expect(evaluationExamples.length).toBeGreaterThanOrEqual(120);
     expect(new Set(evaluationExamples.map((example) => example.id)).size).toBe(evaluationExamples.length);
   });
 

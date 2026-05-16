@@ -2,88 +2,91 @@
 
 ## Current status
 
-- **Ready for self-testing and small student/friend testing** with clear disclaimers and privacy instructions.
-- **Ready for counselor feedback** on wording, workflows, safe-next-step usefulness, and resource gaps.
-- **Not ready for an education-center pilot** until Firebase/rules/security and data governance are validated.
-- **Not ready for paid institution use** and must not be marketed as certified fraud detection.
+This product is ready for **self-testing**, **5–10 trusted student/friend testers**, and **counselor feedback** after the QA checklist passes. It is **not ready** for full education-center pilots, paid institution use, or production Firebase dashboards.
 
 ## Who can test now
 
-- The project owner.
-- Trusted friends or students who understand this is an educational MVP under validation.
-- Counselors or international-student support staff reviewing content and workflow, not relying on it for operational decisions.
+- The project owner/founder.
+- Trusted international students or recent applicants who understand this is under validation.
+- Parents/friends using synthetic or safely redacted messages.
+- Counselors/advisers reviewing language, workflows, and escalation guidance.
 
 ## Who should not use it yet
 
-- Students in urgent financial, immigration, housing, safety, or law-enforcement situations without human support.
-- Minors unless a trusted adult/counselor is involved.
-- Education centers or institutions needing production records, dashboards, retention, deletion, or admin access.
-- Paid customers or anyone expecting guaranteed fraud detection.
+- Schools or education centers making operational decisions.
+- Paid institution customers.
+- Minors testing alone without a trusted adult/counselor.
+- Anyone facing immediate financial loss, threats, self-harm risk, immigration deadlines, or account compromise without human support.
 
 ## What testers must be told
 
-- The checker detects **risk indicators**, not certainty.
-- It can miss scams and can over-score legitimate messages.
-- It does not replace official university, embassy, bank, police, legal, immigration, or emergency channels.
-- The checker runs locally by default, but optional reports are still best-effort redacted and should be reviewed carefully.
-- Local reports and feedback in localStorage are browser-only and not encrypted institutional storage.
+- The tool detects **risk indicators**, not certainty.
+- It is educational and under validation.
+- It does not provide legal, immigration, financial, emergency, or law-enforcement advice.
+- Checker analysis runs locally by default.
+- Redacted reporting is best effort and requires preview review.
+- localStorage reports are browser-only, not encrypted, and not institutional records.
+- Firebase dashboard mode is not connected unless a secure Firebase implementation and governance review are completed.
 
-## What testers must not paste
+## What data testers must not paste
 
-Tell testers not to paste:
+Do not paste:
 
-- passport scans or full passport numbers,
-- student IDs,
-- card or bank-account numbers,
-- passwords, OTPs, PINs, recovery codes, or login links,
-- exact home addresses,
-- private documents or screenshots with personal data,
-- names/contact details of real people unless removed first.
+- Passport scans or passport numbers.
+- Student IDs, national IDs, visa numbers, SEVIS/CAS/I-20 identifiers.
+- Card numbers, bank details, CVV, PINs, passwords, OTPs, recovery codes.
+- Exact addresses, phone numbers, personal email addresses, names of minors.
+- Private documents, screenshots with personal data, or legal/immigration files.
 
-## How to collect feedback safely
+## Safe testing with synthetic messages
 
-- Prefer structured observations: “Which warning was confusing?” “Did the script help?” “Was the risk level too high/too low?”
-- Do not ask testers to send raw suspicious messages in chat, email, forms, or screenshots.
-- If examples are needed, ask testers to paraphrase and remove identifiers.
-- Summarize trends by category, channel, country/destination context, and risk indicator—not by raw message text.
+- Start with built-in demo messages.
+- Create synthetic examples by scenario: scholarship fee, visa threat, fake housing deposit, bank/card phishing, testing score upgrade.
+- Do not use real names, exact institutions, or real account numbers.
+- Record only category, risk level, whether the explanation made sense, and next-step clarity.
 
-## How to handle suspicious real messages
+## Safe testing with real messages after redaction
 
-1. Ask the tester to stop before paying, clicking, replying, or sending documents.
-2. Have them verify through a published official channel typed manually or a saved official app/bookmark.
-3. If money, credentials, card data, documents, or OTPs were already shared, direct them to the relevant bank/payment provider, real institution, counselor, and appropriate local reporting channel.
-4. If the situation involves immediate danger, coercion, or a minor, stop product testing and involve a trusted adult, counselor, emergency service, or local authority as appropriate.
+- Remove names, IDs, exact URLs, account numbers, addresses, phone numbers, and institution-specific identifiers before testing.
+- Prefer summarizing the scenario instead of pasting full text.
+- Use the report page only after reviewing the redacted preview.
+- If redaction misses something, stop and clear the form/local data.
+
+## How to collect feedback without raw messages
+
+- Use the anonymous feedback controls in the result card.
+- Use `docs/FEEDBACK_ANALYSIS_TEMPLATE.md` for sessions.
+- Store categories and structured observations only.
+- Never paste raw messages into docs, issues, pull requests, emails, spreadsheets, or chat.
 
 ## When to stop testing
 
-Stop the beta session if:
+Stop immediately if:
 
-- a tester is distressed, pressured, or in immediate danger,
-- a tester starts sharing private documents or secrets,
-- the app gives confusing guidance for a high-stakes issue,
-- Firebase/dashboard behavior appears connected when it is not,
-- localStorage contains raw message text unexpectedly,
-- a counselor identifies unsafe or misleading wording.
+- A tester pastes highly sensitive data.
+- A tester is scared, pressured, or confused about a real deadline.
+- A result appears to encourage unsafe action.
+- A legitimate message scores high/critical and the user may ignore an important official deadline.
+- A high-risk message scores low and the tester might proceed unsafely.
+- localStorage or Firebase behavior is unclear.
 
-## When counselor review is needed
+## When to involve a counselor/adult
 
-Counselor/international-office review is needed before using examples or guidance for:
+Involve a counselor, trusted adult, bank, official school office, or relevant authority when:
 
-- visa or immigration deadlines,
-- tuition/payment diversion,
-- housing deposits,
-- scholarship/admission claims,
-- minors or vulnerable students,
-- country-specific official resources,
-- escalation paths after money or documents are shared.
+- Money, deposits, tuition, refunds, cards, bank accounts, passwords, OTPs, or identity documents are involved.
+- A student is a minor.
+- The message threatens visa cancellation, deportation, admission loss, account closure, or housing loss.
+- The student already clicked, paid, or shared data.
+- The student feels afraid or pressured.
 
-## How to summarize results without raw messages
+## How to summarize feedback safely
 
-Use aggregate, non-identifying notes such as:
+Use broad categories:
 
-- “3 testers found the verification script useful.”
-- “2 testers were confused by local vs Firebase dashboard mode.”
-- “Scholarship-fee examples were understood; housing-deposit examples need clearer next steps.”
-- “One custom message triggered high risk due to urgency + payment + sensitive-data requests.”
-
-Do not include raw messages, names, exact phone numbers, email addresses, URLs, passport/student IDs, card/bank details, or screenshots in beta summaries.
+- Scenario category, not message text.
+- Expected/actual risk level.
+- Whether next steps were understood.
+- Whether wording felt too scary, too certain, or unclear.
+- False-positive/missed-risk notes without identifiers.
+- Privacy concerns and feature requests.
